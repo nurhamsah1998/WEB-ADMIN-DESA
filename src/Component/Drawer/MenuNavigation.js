@@ -9,9 +9,11 @@ export const NavigationMenu = [
   {
     label: "Berita",
     path: "/news",
+    icon: <DashboardIcon />,
   },
   {
     label: "Menu 2",
     path: "/",
+    icon: <DashboardIcon />,
   },
 ];

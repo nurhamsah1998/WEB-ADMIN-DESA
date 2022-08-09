@@ -8,6 +8,7 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
+import { useNavigate } from "react-router-dom";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -15,7 +16,6 @@ import ListItemText from "@mui/material/ListItemText";
 import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import { NavigationMenu } from "./MenuNavigation";
 
@@ -35,7 +35,7 @@ function DrawerMenu({ children }) {
       <Divider />
       <List>
         {NavigationMenu.map((text, index) => (
-          <ListItem key={text} disablePadding>
+          <ListItem key={index} disablePadding>
             <ListItemButton onClick={() => navigate(text.path)}>
               <ListItemIcon>{text.icon}</ListItemIcon>
               <ListItemText primary={text.label} />
@@ -43,11 +43,9 @@ function DrawerMenu({ children }) {
           </ListItem>
         ))}
       </List>
+      <Divider />
     </div>
   );
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -81,7 +79,6 @@ function DrawerMenu({ children }) {
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
-          container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}

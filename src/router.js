@@ -6,18 +6,16 @@ import News from "./Pages/News/News";
 function Router() {
   return useRoutes([
     {
-      element: <Dashboard />,
       path: "/dashboard",
-      children: [
-        {
-          element: <News />,
-          path: "news",
-        },
-      ],
+      element: <Dashboard />,
     },
     {
-      element: <Navigate to="/dashboard" />,
+      path: "news",
+      element: <News />,
+    },
+    {
       path: "/",
+      element: <Navigate to="/dashboard" />,
     },
   ]);
 }
