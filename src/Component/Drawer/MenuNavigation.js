@@ -1,4 +1,6 @@
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import NewspaperIcon from "@mui/icons-material/Newspaper";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 
 export const NavigationMenu = [
   {
@@ -9,11 +11,11 @@ export const NavigationMenu = [
   {
     label: "Berita",
     path: "/news",
-    icon: <DashboardIcon />,
+    icon: <NewspaperIcon />,
   },
   {
     label: "Menu 2",
     path: "/",
-    icon: <DashboardIcon />,
+    icon: <AccountBalanceIcon />,
   },
 ];

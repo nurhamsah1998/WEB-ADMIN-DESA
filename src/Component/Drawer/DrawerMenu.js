@@ -67,8 +67,8 @@ function DrawerMenu({ children }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+          <Typography variant="h6" fontWeight={600} noWrap component="div">
+            Desa Bukit Govardan
           </Typography>
         </Toolbar>
       </AppBar>
