@@ -1,9 +1,22 @@
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
+import useGetData from "../../Hooks/useGetData";
+import supabase from "../../Hooks/supabase";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import FestivalIcon from "@mui/icons-material/Festival";
 import { blue, deepOrange, deepPurple, green, red } from "@mui/material/colors";
+
+export const USER_ADMIN = () => {
+  const { data, isLoading } = useGetData({
+    module: "USER_DEVELOPMENT",
+    enabled: 1,
+  });
+  const USER = supabase.auth.user();
+  const findAdmin = data?.find((item) => item.user_id === USER?.id);
+  const pathAdmin = findAdmin?.is_admin ? "admin/" : "user/";
+  return pathAdmin;
+};
 
 export const NavigationMenu = [
   {

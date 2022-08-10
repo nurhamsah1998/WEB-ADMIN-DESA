@@ -13,9 +13,15 @@ import { Document } from "./Pages/ADMIN/Document/Document";
 import Home from "./Pages/User/Home";
 
 function Router() {
-  const { dataFetch } = useGetData({ module: "USER_DEVELOPMENT" });
-  console.log(dataFetch, "ini");
+  const { data, isLoading } = useGetData({
+    module: "USER_DEVELOPMENT",
+    enabled: 1,
+  });
+  const USER = supabase.auth.user();
+  const findAdmin = data?.find((item) => item.user_id === USER?.id);
   const location = useLocation();
+  const pathAdmin = findAdmin?.is_admin ? "admin/" : "user/";
+  console.log(pathAdmin);
   return useRoutes([
     {
       path: `/web-desa/dashboard`,

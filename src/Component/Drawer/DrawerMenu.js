@@ -16,10 +16,11 @@ import Toolbar from "@mui/material/Toolbar";
 import SearchIcon from "@mui/icons-material/Search";
 import { useLocation } from "react-router-dom";
 import Typography from "@mui/material/Typography";
-import { green, grey } from "@mui/material/colors";
+import { green, grey, red } from "@mui/material/colors";
 import PersonIcon from "@mui/icons-material/Person";
 import { NavigationMenu } from "./MenuNavigation";
 import { Button, TextField } from "@mui/material";
+import useGetData from "../../Hooks/useGetData";
 
 const drawerWidth = 340;
 
@@ -30,7 +31,11 @@ function DrawerMenu({ children, vicibility = true }) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  const { data, isLoading } = useGetData({
+    module: "USER_DEVELOPMENT",
+    enabled: 1,
+  });
+  const USER = data?.find((item) => item.is_admin === true);
   const drawer = (
     <div>
       <Toolbar>
@@ -110,24 +115,38 @@ function DrawerMenu({ children, vicibility = true }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" fontWeight={600} noWrap component="div">
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <span>
-                <span style={{ color: green[500] }}>Web</span>
-                <span style={{ color: grey[800] }}>DESA</span>
-                <span style={{ color: grey[800] }}> | </span>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            <Typography variant="h6" fontWeight={600} noWrap component="div">
+              <span style={{ display: "flex", alignItems: "center" }}>
+                <span>
+                  <span
+                    style={{ color: USER?.is_admin ? red[500] : green[500] }}
+                  >
+                    Web
+                  </span>
+                  <span style={{ color: grey[800] }}>DESA</span>
+                  <span style={{ color: grey[800] }}> | </span>
+                </span>
+                <span
+                  style={{
+                    color: grey[800],
+                    fontSize: "15px",
+                    marginLeft: "5px",
+                  }}
+                >
+                  Membangun Negri Demi Sesuap Nasi
+                </span>
               </span>
-              <span
-                style={{
-                  color: grey[800],
-                  fontSize: "15px",
-                  marginLeft: "5px",
-                }}
-              >
-                Membangun Negri Demi Sesuap Nasi
-              </span>
-            </span>
-          </Typography>
+            </Typography>
+            <Typography sx={{ color: grey[800] }}>{USER?.name}</Typography>
+          </Box>
         </Toolbar>
       </AppBar>
       <Box
