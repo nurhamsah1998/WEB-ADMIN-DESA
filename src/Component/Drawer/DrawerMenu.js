@@ -19,7 +19,7 @@ import Toolbar from "@mui/material/Toolbar";
 import SearchIcon from "@mui/icons-material/Search";
 import { useLocation } from "react-router-dom";
 import Typography from "@mui/material/Typography";
-import { grey } from "@mui/material/colors";
+import { green, grey } from "@mui/material/colors";
 import PersonIcon from "@mui/icons-material/Person";
 import { NavigationMenu } from "./MenuNavigation";
 import { Button, TextField } from "@mui/material";
@@ -40,7 +40,7 @@ function DrawerMenu({ children, vicibility = true }) {
         <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
           <TextField
             InputProps={{
-              startAdornment: <SearchIcon sx={{ color: grey[400] }} />,
+              startAdornment: <SearchIcon sx={{ color: grey[400], mr: 1 }} />,
             }}
             fullWidth
             size="small"
@@ -56,7 +56,7 @@ function DrawerMenu({ children, vicibility = true }) {
       </Toolbar>
 
       <List sx={{ mx: 2 }}>
-        <Typography ml={2} my={4}>
+        <Typography ml={2} mt={4} mb={2} fontWeight={500} variant="h6">
           Menu
         </Typography>
         {NavigationMenu.map((text, index) => {
@@ -69,7 +69,12 @@ function DrawerMenu({ children, vicibility = true }) {
               }}
               disablePadding
             >
-              <ListItemButton onClick={() => navigate(text.path)}>
+              <ListItemButton
+                onClick={() => {
+                  navigate(text.path);
+                  setMobileOpen(!mobileOpen);
+                }}
+              >
                 <ListItemIcon sx={{ color: text.color }}>
                   {text.icon}
                 </ListItemIcon>
@@ -91,6 +96,8 @@ function DrawerMenu({ children, vicibility = true }) {
       <AppBar
         position="fixed"
         sx={{
+          bgcolor: "#fff",
+          boxShadow: "none",
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
           display: vicibility ? "block" : "none",
@@ -107,7 +114,22 @@ function DrawerMenu({ children, vicibility = true }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" fontWeight={600} noWrap component="div">
-            Desa Bukit Govardan
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <span>
+                <span style={{ color: green[500] }}>Web</span>
+                <span style={{ color: grey[800] }}>DESA</span>
+                <span style={{ color: grey[800] }}> | </span>
+              </span>
+              <span
+                style={{
+                  color: grey[800],
+                  fontSize: "15px",
+                  marginLeft: "5px",
+                }}
+              >
+                Membangun Negri Demi Sesuap Nasi
+              </span>
+            </span>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -120,13 +142,12 @@ function DrawerMenu({ children, vicibility = true }) {
         }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },
@@ -156,7 +177,7 @@ function DrawerMenu({ children, vicibility = true }) {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
+          p: vicibility ? 3 : 0,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >

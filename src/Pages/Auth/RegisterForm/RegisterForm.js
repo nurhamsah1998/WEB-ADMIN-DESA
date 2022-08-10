@@ -1,0 +1,154 @@
+import React from "react";
+import {
+  Box,
+  Button,
+  Checkbox,
+  TextField,
+  Typography,
+  Link,
+} from "@mui/material";
+import { grey, green } from "@mui/material/colors";
+import ListItemButton from "@mui/material/ListItemButton";
+import { useNavigate } from "react-router-dom";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import { Formik, Form } from "formik";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import supabase from "../../../Hooks/supabase";
+
+function RegisterForm() {
+  const navigate = useNavigate();
+  const [show, setShow] = React.useState(false);
+  return (
+    <Box sx={{ width: "100%", mt: 20 }}>
+      <Box
+        sx={{
+          width: { xs: "90%", sm: "50%", lg: "70%", xl: "70%" },
+          mx: "auto",
+        }}
+      >
+        <Box
+          sx={{
+            display: { xs: "grid", sm: "grid", lg: "flex", xl: "flex" },
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography variant="h4" fontWeight={600} noWrap component="div">
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <span>
+                <span style={{ color: green[500] }}>Web</span>
+                <span style={{ color: grey[800] }}>DESA</span>
+              </span>
+            </span>
+          </Typography>
+          <Typography>
+            Website Resmi <span style={{ color: green[500] }}>Web</span>
+            <span style={{ color: grey[800] }}>DESA</span>
+          </Typography>
+        </Box>
+        <Typography
+          mt={"74px"}
+          variant="h4"
+          textAlign={"center"}
+          fontWeight={700}
+        >
+          Selamat Datang
+        </Typography>
+        <Box mt={10}>
+          <Typography variant="h6" fontWeight={400}>
+            Daftarkan akun anda
+          </Typography>
+          <Formik
+            initialValues={{
+              name: "",
+              nik: "",
+              email: "",
+              password: "",
+            }}
+            onSubmit={async (values) => {
+              let { user, error } = await supabase.auth.signUp({
+                ...values,
+              });
+              if (!error) {
+                window.location.reload();
+              }
+              if (error) {
+                alert("AYOYO, APA SUDAH MACAM!!!!");
+              }
+            }}
+          >
+            {({ values, getFieldProps }) => (
+              <Form>
+                <Box>
+                  {[
+                    { name: "name", placeholder: "nama", type: "text" },
+                    {
+                      name: "email",
+                      placeholder: "alamat email",
+                      type: "email",
+                    },
+                    { name: "nik", placeholder: "NIK", type: "number" },
+                    {
+                      name: "password",
+                      placeholder: "password",
+                      type: show ? "text" : "password",
+                      icon: show ? (
+                        <ListItemButton onClick={() => setShow(!show)}>
+                          <VisibilityIcon />
+                        </ListItemButton>
+                      ) : (
+                        <ListItemButton onClick={() => setShow(!show)}>
+                          <VisibilityOffIcon />
+                        </ListItemButton>
+                      ),
+                    },
+                  ].map((item, index) => (
+                    <Box key={index} sx={{ mt: 3 }}>
+                      <TextField
+                        InputProps={{ endAdornment: item.icon }}
+                        fullWidth
+                        type={item.type}
+                        {...getFieldProps(item.name)}
+                        label={item.placeholder}
+                      />
+                    </Box>
+                  ))}
+                  <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
+                    <Checkbox />
+                    <Typography fontSize={14}>
+                      Dengan menyetujui syarat , ketentuan dan kebijakan yang
+                      berlaku
+                    </Typography>
+                  </Box>
+                  <Button
+                    type="submit"
+                    sx={{ mt: 3 }}
+                    variant="contained"
+                    fullWidth
+                  >
+                    Daftar
+                  </Button>
+                  <Box mt={3}>
+                    <Typography textAlign="center">
+                      Sudah punya akun ?{" "}
+                      <Link
+                        underline="none"
+                        sx={{ cursor: "pointer", ml: 1 }}
+                        to="/auth/login"
+                        onClick={() => navigate("/auth/login")}
+                      >
+                        Daftar
+                      </Link>
+                    </Typography>
+                  </Box>
+                </Box>
+              </Form>
+            )}
+          </Formik>
+        </Box>
+      </Box>
+    </Box>
+  );
+}
+
+export default RegisterForm;
