@@ -46,6 +46,7 @@ function App() {
     : location.pathname.includes("/auth") && isNotShow;
 
   const navigate = useNavigate();
+
   useEffect(() => {
     const getToken = localStorage.getItem("supabase.auth.token");
     if (getToken) {

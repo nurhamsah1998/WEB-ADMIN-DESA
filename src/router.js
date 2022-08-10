@@ -1,5 +1,7 @@
 import React from "react";
-import { useRoutes, Navigate } from "react-router-dom";
+import { useRoutes, Navigate, useLocation } from "react-router-dom";
+import supabase from "./Hooks/supabase";
+import useGetData from "./Hooks/useGetData";
 import Dashboard from "./Pages/ADMIN/Dashboard/Dashboard";
 import News from "./Pages/ADMIN/News/News";
 import Login from "./Pages/Auth/Login";
@@ -10,29 +12,32 @@ import { More } from "./Pages/ADMIN/More/More";
 import { Document } from "./Pages/ADMIN/Document/Document";
 
 function Router() {
+  const { dataFetch } = useGetData({ module: "USER_DEVELOPMENT" });
+  console.log(dataFetch, "ini");
+  const location = useLocation();
   return useRoutes([
     {
-      path: "/web-desa/dashboard",
+      path: `/web-desa/dashboard`,
       element: <Dashboard />,
     },
     {
-      path: "/web-desa/news",
+      path: `/web-desa/news`,
       element: <News />,
     },
     {
-      path: "/web-desa/program",
+      path: `/web-desa/program`,
       element: <Program />,
     },
     {
-      path: "/web-desa/account",
+      path: `/web-desa/account`,
       element: <Account />,
     },
     {
-      path: "/web-desa/more",
+      path: `/web-desa/more`,
       element: <More />,
     },
     {
-      path: "/web-desa/document",
+      path: `/web-desa/document`,
       element: <Document />,
     },
     {

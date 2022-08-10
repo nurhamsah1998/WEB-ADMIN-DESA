@@ -66,14 +66,42 @@ function RegisterForm() {
               password: "",
             }}
             onSubmit={async (values) => {
-              let { user, error } = await supabase.auth.signUp({
+              const { user, error } = await supabase.auth.signUp({
                 ...values,
               });
-              if (!error) {
-                window.location.reload();
+              const passwordError = error?.message?.includes("characters");
+              const emailError = error?.message?.includes("email");
+              const emailExist = error?.message?.includes("already ");
+              if (passwordError) {
+                alert("sandi harus lebih 8 hurup");
+                return;
+              } else if (emailError) {
+                alert("masukkan email yang valid");
+                return;
+              } else if (emailExist) {
+                alert("email sudah terdaftar");
+                return;
               }
-              if (error) {
-                alert("AYOYO, APA SUDAH MACAM!!!!");
+              if (user) {
+                setTimeout(async () => {
+                  const USER_ID = supabase?.auth.user();
+                  console.log(USER_ID?.id);
+                  const { data, error } = await supabase
+                    .from("USER_DEVELOPMENT")
+                    .insert([
+                      {
+                        user_id: USER_ID?.id,
+                        name: values?.name,
+                        is_admin: false,
+                      },
+                    ]);
+                  if (error) {
+                    console.log(error?.message);
+                  } else {
+                    alert("register berhasil");
+                    window.location.reload();
+                  }
+                }, 1000);
               }
             }}
           >
@@ -137,7 +165,7 @@ function RegisterForm() {
                         to="/auth/login"
                         onClick={() => navigate("/auth/login")}
                       >
-                        Daftar
+                        Masuk
                       </Link>
                     </Typography>
                   </Box>
