@@ -10,6 +10,7 @@ import Program from "./Pages/ADMIN/Program/Program";
 import { Account } from "./Pages/ADMIN/Account/Account";
 import { More } from "./Pages/ADMIN/More/More";
 import { Document } from "./Pages/ADMIN/Document/Document";
+import Home from "./Pages/User/Home";
 
 function Router() {
   const { dataFetch } = useGetData({ module: "USER_DEVELOPMENT" });
@@ -51,6 +52,11 @@ function Router() {
     {
       path: "/auth/register",
       element: <Register />,
+    },
+    //user
+    {
+      path: "/web-desa/home",
+      element: <Home />,
     },
   ]);
 }
