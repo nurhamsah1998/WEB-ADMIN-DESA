@@ -43,7 +43,6 @@ function DrawerMenu({ children, vicibility = true }) {
           </ListItem>
         ))}
       </List>
-      <Divider />
     </div>
   );
 

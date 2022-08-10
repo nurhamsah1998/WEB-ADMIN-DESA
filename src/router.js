@@ -1,7 +1,7 @@
 import React from "react";
 import { useRoutes, Navigate } from "react-router-dom";
-import Dashboard from "./Pages/Dashboard/Dashboard";
-import News from "./Pages/News/News";
+import Dashboard from "./Pages/ADMIN/Dashboard/Dashboard";
+import News from "./Pages/ADMIN/News/News";
 import Login from "./Pages/Auth/Login";
 import Register from "./Pages/Auth/Register";
 
