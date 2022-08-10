@@ -5,12 +5,12 @@ import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 export const NavigationMenu = [
   {
     label: "Dasboard",
-    path: "/dashboard",
+    path: "/web-desa/dashboard",
     icon: <DashboardIcon />,
   },
   {
     label: "Berita",
-    path: "/news",
+    path: "/web-desa/news",
     icon: <NewspaperIcon />,
   },
   {

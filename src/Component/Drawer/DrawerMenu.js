@@ -21,7 +21,7 @@ import { NavigationMenu } from "./MenuNavigation";
 
 const drawerWidth = 240;
 
-function DrawerMenu({ children }) {
+function DrawerMenu({ children, vicibility = true }) {
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -55,6 +55,7 @@ function DrawerMenu({ children }) {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          display: vicibility ? "block" : "none",
         }}
       >
         <Toolbar>
@@ -74,7 +75,11 @@ function DrawerMenu({ children }) {
       </AppBar>
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{
+          width: { sm: drawerWidth },
+          flexShrink: { sm: 0 },
+          display: vicibility ? "block" : "none",
+        }}
         aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -117,7 +122,7 @@ function DrawerMenu({ children }) {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        <Toolbar />
+        {vicibility ? <Toolbar /> : null}
         {children}
       </Box>
     </Box>

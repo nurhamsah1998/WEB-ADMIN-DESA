@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
+import React from "react";
 import { blue } from "@mui/material/colors";
 import DrawerMenu from "./Component/Drawer/DrawerMenu";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import DrawerAppBar from "./Component/Drawer/DrawerMenu";
+import { useLocation } from "react-router-dom";
 import Router from "./router";
 
 function App() {
+  const location = useLocation();
   const theme = createTheme({
     palette: {
       primary: {
@@ -34,14 +34,18 @@ function App() {
       },
     },
   });
+  const isShow = true;
+  const isNotShow = false;
+  const isVicibility = location.pathname.includes("/web-desa")
+    ? isShow
+    : location.pathname.includes("/auth") && isNotShow;
+  console.log(isVicibility);
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <DrawerMenu>
-          <Router />
-        </DrawerMenu>
-      </ThemeProvider>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <DrawerMenu vicibility={isVicibility}>
+        <Router />
+      </DrawerMenu>
+    </ThemeProvider>
   );
 }
 
