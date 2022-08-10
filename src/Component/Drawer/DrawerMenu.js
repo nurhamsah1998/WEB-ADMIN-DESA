@@ -16,32 +16,71 @@ import ListItemText from "@mui/material/ListItemText";
 import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
+import SearchIcon from "@mui/icons-material/Search";
+import { useLocation } from "react-router-dom";
 import Typography from "@mui/material/Typography";
+import { grey } from "@mui/material/colors";
+import PersonIcon from "@mui/icons-material/Person";
 import { NavigationMenu } from "./MenuNavigation";
+import { Button, TextField } from "@mui/material";
 
-const drawerWidth = 240;
+const drawerWidth = 340;
 
 function DrawerMenu({ children, vicibility = true }) {
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const location = useLocation();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   const drawer = (
     <div>
-      <Toolbar />
-      <Divider />
-      <List>
-        {NavigationMenu.map((text, index) => (
-          <ListItem key={index} disablePadding>
-            <ListItemButton onClick={() => navigate(text.path)}>
-              <ListItemIcon>{text.icon}</ListItemIcon>
-              <ListItemText primary={text.label} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+      <Toolbar>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
+          <TextField
+            InputProps={{
+              startAdornment: <SearchIcon sx={{ color: grey[400] }} />,
+            }}
+            fullWidth
+            size="small"
+          />
+          <Button
+            color="secondary"
+            variant="contained"
+            sx={{ color: grey[400], minHeight: 0, minWidth: 0 }}
+          >
+            <PersonIcon />
+          </Button>
+        </Box>
+      </Toolbar>
+
+      <List sx={{ mx: 2 }}>
+        <Typography ml={2} my={4}>
+          Menu
+        </Typography>
+        {NavigationMenu.map((text, index) => {
+          return (
+            <ListItem
+              key={index}
+              sx={{
+                bgcolor: text.path.includes(location.pathname) ? grey[100] : "",
+                borderRadius: 2,
+              }}
+              disablePadding
+            >
+              <ListItemButton onClick={() => navigate(text.path)}>
+                <ListItemIcon sx={{ color: text.color }}>
+                  {text.icon}
+                </ListItemIcon>
+                <Box>
+                  <ListItemText primary={text.label} />
+                  <Typography sx={{ fontSize: 12 }}>{text.tag}</Typography>
+                </Box>
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
       </List>
     </div>
   );

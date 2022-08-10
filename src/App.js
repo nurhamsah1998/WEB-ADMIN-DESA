@@ -1,5 +1,5 @@
 import React from "react";
-import { blue } from "@mui/material/colors";
+import { blue, grey } from "@mui/material/colors";
 import DrawerMenu from "./Component/Drawer/DrawerMenu";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useLocation } from "react-router-dom";
@@ -12,13 +12,16 @@ function App() {
       primary: {
         main: blue[600],
       },
+      secondary: {
+        main: grey[100],
+      },
     },
     typography: {
       fontFamily: "Poppins",
       fontSize: 15,
-      fontWeightMedium: 200,
-      fontWeightLight: 200,
-      fontWeightRegular: 300,
+      fontWeightMedium: 400,
+      fontWeightLight: 400,
+      fontWeightRegular: 400,
       fontWeightBold: 900,
     },
     components: {
@@ -27,8 +30,9 @@ function App() {
           root: {
             textTransform: "capitalize",
             "&:hover": {
-              background: "",
+              boxShadow: "none",
             },
+            boxShadow: "none",
           },
         },
       },
@@ -39,7 +43,6 @@ function App() {
   const isVicibility = location.pathname.includes("/web-desa")
     ? isShow
     : location.pathname.includes("/auth") && isNotShow;
-  console.log(isVicibility);
   return (
     <ThemeProvider theme={theme}>
       <DrawerMenu vicibility={isVicibility}>
