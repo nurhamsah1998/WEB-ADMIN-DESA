@@ -50,7 +50,7 @@ function App() {
   useEffect(() => {
     const getToken = localStorage.getItem("supabase.auth.token");
     if (getToken) {
-      navigate("/");
+      console.log("ayoyoo");
     }
     if (!getToken) {
       navigate("/auth/login");

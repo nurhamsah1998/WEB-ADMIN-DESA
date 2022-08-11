@@ -21,7 +21,7 @@ function Router() {
   const findAdmin = data?.find((item) => item.user_id === USER?.id);
   const location = useLocation();
   const pathAdmin = findAdmin?.is_admin ? "admin/" : "user/";
-  console.log(pathAdmin);
+
   return useRoutes([
     {
       path: `/web-desa/dashboard`,
