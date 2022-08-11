@@ -3,6 +3,7 @@ import { Box, Button, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from "@mui/icons-material/Info";
+import FestivalIcon from "@mui/icons-material/Festival";
 
 function Program() {
   const data = [
@@ -65,7 +66,12 @@ function Program() {
   ];
   return (
     <Box>
-      <Box width="100%">
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 5 }}>
+        <Button startIcon={<FestivalIcon />} variant="contained">
+          Tambah program
+        </Button>
+      </Box>
+      <Box>
         {data.map((item, index) => (
           <Box
             key={index}
