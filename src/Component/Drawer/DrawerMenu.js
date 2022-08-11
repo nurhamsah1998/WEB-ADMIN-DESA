@@ -74,7 +74,7 @@ function DrawerMenu({ children, vicibility = true }) {
             >
               <ListItemButton
                 onClick={() => {
-                  if (location.search === "?log-out") {
+                  if (text.path === "?log-out") {
                     localStorage.clear();
                     window.location.reload();
                   } else {
