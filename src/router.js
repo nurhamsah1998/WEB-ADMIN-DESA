@@ -12,7 +12,7 @@ import { More } from "./Pages/ADMIN/More/More";
 import { Document } from "./Pages/ADMIN/Document/Document";
 import Home from "./Pages/User/Home";
 
-function Router() {
+function Router({ admin }) {
   const { data, isLoading } = useGetData({
     module: "USER_DEVELOPMENT",
     enabled: 1,
@@ -21,50 +21,62 @@ function Router() {
   const findAdmin = data?.find((item) => item.user_id === USER?.id);
   const location = useLocation();
   const pathAdmin = findAdmin?.is_admin ? "admin/" : "user/";
-
-  return useRoutes([
-    {
-      path: `/web-desa/dashboard`,
-      element: <Dashboard />,
-    },
-    {
-      path: `/web-desa/news`,
-      element: <News />,
-    },
-    {
-      path: `/web-desa/program`,
-      element: <Program />,
-    },
-    {
-      path: `/web-desa/account`,
-      element: <Account />,
-    },
-    {
-      path: `/web-desa/more`,
-      element: <More />,
-    },
-    {
-      path: `/web-desa/document`,
-      element: <Document />,
-    },
-    {
-      path: "/",
-      element: <Navigate to="/web-desa/dashboard" />,
-    },
-    {
-      path: "/auth/login",
-      element: <Login />,
-    },
-    {
-      path: "/auth/register",
-      element: <Register />,
-    },
-    //user
-    {
-      path: "/web-desa/user/home",
-      element: <Home />,
-    },
-  ]);
+  console.log(admin, "=====");
+  return useRoutes(
+    admin
+      ? [
+          {
+            path: `/web-desa/dashboard`,
+            element: <Dashboard />,
+          },
+          {
+            path: `/web-desa/news`,
+            element: <News />,
+          },
+          {
+            path: `/web-desa/program`,
+            element: <Program />,
+          },
+          {
+            path: `/web-desa/account`,
+            element: <Account />,
+          },
+          {
+            path: `/web-desa/more`,
+            element: <More />,
+          },
+          {
+            path: `/web-desa/document`,
+            element: <Document />,
+          },
+          {
+            path: "/",
+            element: <Navigate to="/web-desa/dashboard" />,
+          },
+          {
+            path: "/auth/login",
+            element: <Login />,
+          },
+          {
+            path: "/auth/register",
+            element: <Register />,
+          },
+        ]
+      : [
+          {
+            path: "/",
+            element: <Navigate to="/web-desa/user/home" />,
+          },
+          {
+            path: "/auth/login",
+            element: <Login />,
+          },
+          {
+            path: "/web-desa/user/home",
+            element: <Home />,
+          },
+        ]
+  );
 }
 
 export default Router;

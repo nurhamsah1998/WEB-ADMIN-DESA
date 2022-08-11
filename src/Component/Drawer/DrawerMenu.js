@@ -47,11 +47,7 @@ function DrawerMenu({ children, vicibility = true }) {
             fullWidth
             size="small"
           />
-          <Button
-            color="secondary"
-            variant="contained"
-            sx={{ color: grey[400], minHeight: 0, minWidth: 0 }}
-          >
+          <Button color="secondary" variant="contained" sx={{ color: grey[400], minHeight: 0, minWidth: 0 }}>
             <PersonIcon />
           </Button>
         </Box>
@@ -77,9 +73,7 @@ function DrawerMenu({ children, vicibility = true }) {
                   setMobileOpen(!mobileOpen);
                 }}
               >
-                <ListItemIcon sx={{ color: text.color }}>
-                  {text.icon}
-                </ListItemIcon>
+                <ListItemIcon sx={{ color: text.color }}>{text.icon}</ListItemIcon>
                 <Box>
                   <ListItemText primary={text.label} />
                   <Typography sx={{ fontSize: 12 }}>{text.tag}</Typography>
@@ -126,11 +120,7 @@ function DrawerMenu({ children, vicibility = true }) {
             <Typography variant="h6" fontWeight={600} noWrap component="div">
               <span style={{ display: "flex", alignItems: "center" }}>
                 <span>
-                  <span
-                    style={{ color: USER?.is_admin ? red[500] : green[500] }}
-                  >
-                    Web
-                  </span>
+                  <span style={{ color: USER?.is_admin ? red[500] : green[500] }}>Web</span>
                   <span style={{ color: grey[800] }}>DESA</span>
                   <span style={{ color: grey[800] }}> | </span>
                 </span>
@@ -193,7 +183,7 @@ function DrawerMenu({ children, vicibility = true }) {
         component="main"
         sx={{
           flexGrow: 1,
-          p: vicibility ? 3 : 0,
+          p: vicibility ? { xs: 0, md: 3 } : 0,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >

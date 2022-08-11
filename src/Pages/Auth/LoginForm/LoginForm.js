@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  Checkbox,
-  Link,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Checkbox, Link, TextField, Typography } from "@mui/material";
 import { grey, green } from "@mui/material/colors";
 import ListItemButton from "@mui/material/ListItemButton";
 import { Formik, Form } from "formik";
@@ -47,12 +40,7 @@ function LoginForm() {
             <span style={{ color: grey[800] }}>DESA</span>
           </Typography>
         </Box>
-        <Typography
-          mt={"74px"}
-          variant="h4"
-          textAlign={"center"}
-          fontWeight={700}
-        >
+        <Typography mt={"74px"} variant="h4" textAlign={"center"} fontWeight={700}>
           Selamat Datang
         </Typography>
         <Box mt={10}>
@@ -69,13 +57,13 @@ function LoginForm() {
                 ...values,
               });
               if (!error) {
-                const { data } = await supabase
-                  .from("USER_DEVELOPMENT")
-                  .select("*")
-                  .eq("user_id", user?.id);
+                const { data } = await supabase.from("USER_DEVELOPMENT").select("*").eq("user_id", user?.id);
                 if (data[0]?.is_admin) {
+                  localStorage.setItem("is-admin", data[0]?.is_admin);
+
                   navigate("/");
                 } else {
+                  localStorage.setItem("is-admin", data[0]?.is_admin);
                   navigate("/web-desa/user/home");
                 }
               }
@@ -114,12 +102,7 @@ function LoginForm() {
                       />
                     </Box>
                   ))}
-                  <Button
-                    type="submit"
-                    sx={{ mt: 3 }}
-                    variant="contained"
-                    fullWidth
-                  >
+                  <Button type="submit" sx={{ mt: 3 }} variant="contained" fullWidth>
                     Masuk
                   </Button>
                   <Box mt={3}>

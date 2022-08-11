@@ -5,6 +5,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Router from "./router";
+import UserRouter from "./userRouter";
 
 function App() {
   const location = useLocation();
@@ -46,6 +47,8 @@ function App() {
     : location.pathname.includes("/auth") && isNotShow;
 
   const navigate = useNavigate();
+  const isUser = location.pathname.includes("/web-desa/user");
+  const isAdmin = localStorage.getItem("is-admin");
 
   useEffect(() => {
     const getToken = localStorage.getItem("supabase.auth.token");
@@ -56,11 +59,18 @@ function App() {
       navigate("/auth/login");
     }
   }, []);
+
   return (
     <ThemeProvider theme={theme}>
-      <DrawerMenu vicibility={isVicibility}>
-        <Router />
-      </DrawerMenu>
+      {isAdmin === "true" ? (
+        <DrawerMenu vicibility={isVicibility && !isUser}>
+          <Router admin={true} />
+        </DrawerMenu>
+      ) : (
+        <DrawerMenu vicibility={isVicibility && !isUser}>
+          <Router admin={false} />
+        </DrawerMenu>
+      )}
     </ThemeProvider>
   );
 }
