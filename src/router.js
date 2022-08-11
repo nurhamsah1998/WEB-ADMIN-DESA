@@ -1,7 +1,5 @@
 import React from "react";
-import { useRoutes, Navigate, useLocation } from "react-router-dom";
-import supabase from "./Hooks/supabase";
-import useGetData from "./Hooks/useGetData";
+import { useRoutes, Navigate } from "react-router-dom";
 import Dashboard from "./Pages/ADMIN/Dashboard/Dashboard";
 import News from "./Pages/ADMIN/News/News";
 import Login from "./Pages/Auth/Login";
@@ -13,15 +11,6 @@ import { Document } from "./Pages/ADMIN/Document/Document";
 import Home from "./Pages/User/Home";
 
 function Router({ admin }) {
-  const { data, isLoading } = useGetData({
-    module: "USER_DEVELOPMENT",
-    enabled: 1,
-  });
-  const USER = supabase.auth.user();
-  const findAdmin = data?.find((item) => item.user_id === USER?.id);
-  const location = useLocation();
-  const pathAdmin = findAdmin?.is_admin ? "admin/" : "user/";
-  console.log(admin, "=====");
   return useRoutes(
     admin
       ? [

@@ -12,6 +12,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
+import supabase from "../../Hooks/supabase";
 import Toolbar from "@mui/material/Toolbar";
 import SearchIcon from "@mui/icons-material/Search";
 import { useLocation } from "react-router-dom";
@@ -35,7 +36,7 @@ function DrawerMenu({ children, vicibility = true }) {
     module: "USER_DEVELOPMENT",
     enabled: 1,
   });
-  const USER = data?.find((item) => item.is_admin === true);
+  const USER = data?.find((item) => item.user_id === supabase.auth.user()?.id);
   const drawer = (
     <div>
       <Toolbar>
@@ -47,7 +48,11 @@ function DrawerMenu({ children, vicibility = true }) {
             fullWidth
             size="small"
           />
-          <Button color="secondary" variant="contained" sx={{ color: grey[400], minHeight: 0, minWidth: 0 }}>
+          <Button
+            color="secondary"
+            variant="contained"
+            sx={{ color: grey[400], minHeight: 0, minWidth: 0 }}
+          >
             <PersonIcon />
           </Button>
         </Box>
@@ -73,7 +78,9 @@ function DrawerMenu({ children, vicibility = true }) {
                   setMobileOpen(!mobileOpen);
                 }}
               >
-                <ListItemIcon sx={{ color: text.color }}>{text.icon}</ListItemIcon>
+                <ListItemIcon sx={{ color: text.color }}>
+                  {text.icon}
+                </ListItemIcon>
                 <Box>
                   <ListItemText primary={text.label} />
                   <Typography sx={{ fontSize: 12 }}>{text.tag}</Typography>
@@ -92,7 +99,7 @@ function DrawerMenu({ children, vicibility = true }) {
       <AppBar
         position="fixed"
         sx={{
-          bgcolor: "#fff",
+          bgcolor: grey[100],
           boxShadow: "none",
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
@@ -120,7 +127,7 @@ function DrawerMenu({ children, vicibility = true }) {
             <Typography variant="h6" fontWeight={600} noWrap component="div">
               <span style={{ display: "flex", alignItems: "center" }}>
                 <span>
-                  <span style={{ color: USER?.is_admin ? red[500] : green[500] }}>Web</span>
+                  <span style={{ color: green[500] }}>Web</span>
                   <span style={{ color: grey[800] }}>DESA</span>
                   <span style={{ color: grey[800] }}> | </span>
                 </span>
@@ -135,7 +142,9 @@ function DrawerMenu({ children, vicibility = true }) {
                 </span>
               </span>
             </Typography>
-            <Typography sx={{ color: grey[800] }}>{USER?.name}</Typography>
+            <Typography sx={{ color: grey[800] }}>
+              {USER?.name || "--Not-Set--"}
+            </Typography>
           </Box>
         </Toolbar>
       </AppBar>
@@ -184,6 +193,7 @@ function DrawerMenu({ children, vicibility = true }) {
         sx={{
           flexGrow: 1,
           p: vicibility ? { xs: 0, md: 3 } : 0,
+          bgcolor: grey[100],
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >

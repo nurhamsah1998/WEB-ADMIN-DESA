@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { blue, grey } from "@mui/material/colors";
+import { blue, grey, orange, red } from "@mui/material/colors";
 import DrawerMenu from "./Component/Drawer/DrawerMenu";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,12 @@ function App() {
       },
       secondary: {
         main: grey[100],
+      },
+      warning: {
+        main: orange[500],
+      },
+      error: {
+        main: red[500],
       },
     },
     typography: {
