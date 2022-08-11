@@ -66,6 +66,10 @@ function Router({ admin }) {
             element: <Login />,
           },
           {
+            path: "/auth/register",
+            element: <Register />,
+          },
+          {
             path: "/web-desa/user/home",
             element: <Home />,
           },
