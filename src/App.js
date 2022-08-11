@@ -67,9 +67,7 @@ function App() {
           <Router admin={true} />
         </DrawerMenu>
       ) : (
-        <DrawerMenu vicibility={isVicibility && !isUser}>
-          <Router admin={false} />
-        </DrawerMenu>
+        <Router admin={false} />
       )}
     </ThemeProvider>
   );
