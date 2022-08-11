@@ -74,8 +74,13 @@ function DrawerMenu({ children, vicibility = true }) {
             >
               <ListItemButton
                 onClick={() => {
-                  navigate(text.path);
-                  setMobileOpen(!mobileOpen);
+                  if (location.search === "?log-out") {
+                    localStorage.clear();
+                    window.location.reload();
+                  } else {
+                    navigate(text.path);
+                    setMobileOpen(!mobileOpen);
+                  }
                 }}
               >
                 <ListItemIcon sx={{ color: text.color }}>

@@ -9,6 +9,7 @@ import { Account } from "./Pages/ADMIN/Account/Account";
 import { More } from "./Pages/ADMIN/More/More";
 import { Document } from "./Pages/ADMIN/Document/Document";
 import Home from "./Pages/User/Home";
+import Complain from "./Pages/ADMIN/Complain/Complain";
 
 function Router({ admin }) {
   return useRoutes(
@@ -37,6 +38,10 @@ function Router({ admin }) {
           {
             path: `/web-desa/document`,
             element: <Document />,
+          },
+          {
+            path: `/web-desa/complain`,
+            element: <Complain />,
           },
           {
             path: "/",

@@ -1,29 +1,26 @@
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
-import useGetData from "../../Hooks/useGetData";
-import supabase from "../../Hooks/supabase";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
+import CampaignIcon from "@mui/icons-material/Campaign";
 import FestivalIcon from "@mui/icons-material/Festival";
-import { blue, deepOrange, deepPurple, green, red } from "@mui/material/colors";
-
-export const USER_ADMIN = () => {
-  const { data, isLoading } = useGetData({
-    module: "USER_DEVELOPMENT",
-    enabled: 1,
-  });
-  const USER = supabase.auth.user();
-  const findAdmin = data?.find((item) => item.user_id === USER?.id);
-  const pathAdmin = findAdmin?.is_admin ? "admin/" : "user/";
-  return pathAdmin;
-};
+import {
+  blue,
+  deepOrange,
+  deepPurple,
+  green,
+  red,
+  grey,
+  yellow,
+} from "@mui/material/colors";
 
 export const NavigationMenu = [
   {
     tag: "tampilan depan",
     label: "Beranda",
     path: "/web-desa/dashboard",
-    color: red[500],
+    color: yellow[700],
     icon: <DashboardIcon />,
   },
   {
@@ -48,10 +45,24 @@ export const NavigationMenu = [
     icon: <FestivalIcon />,
   },
   {
+    tag: "pengaduan masyarakat",
+    label: "Pengaduan",
+    path: "/web-desa/complain",
+    color: grey[500],
+    icon: <CampaignIcon />,
+  },
+  {
     tag: "pengaturan lainnya",
     label: "Lainnya",
     path: "/web-desa/more",
     color: deepPurple[500],
     icon: <DragIndicatorIcon />,
+  },
+  {
+    tag: "keluar halaman",
+    label: "Log out",
+    path: "?log-out",
+    color: red[500],
+    icon: <ExitToAppIcon />,
   },
 ];
