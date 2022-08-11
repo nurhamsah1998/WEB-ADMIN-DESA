@@ -61,7 +61,7 @@ function Router() {
     },
     //user
     {
-      path: "/web-desa/home",
+      path: "/web-desa/user/home",
       element: <Home />,
     },
   ]);
