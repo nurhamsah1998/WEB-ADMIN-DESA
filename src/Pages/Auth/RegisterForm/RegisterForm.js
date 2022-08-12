@@ -93,13 +93,15 @@ function RegisterForm() {
                 setNotif((e) => ({
                   ...e,
                   v: true,
-                  message: "email sudah terdaftar",
+                  message:
+                    "sepertinya email sudah terdaftar. coba masukkan emal lain.",
                   variant: "error",
                 }));
                 setLoading(false);
                 return;
               }
               if (user) {
+                setLoading(true);
                 setTimeout(async () => {
                   const USER_ID = supabase?.auth.user();
                   console.log(USER_ID?.id);
@@ -117,6 +119,7 @@ function RegisterForm() {
                     setLoading(false);
                     console.log(error?.message);
                   } else {
+                    setLoading(true);
                     setNotif((e) => ({
                       ...e,
                       v: true,
@@ -125,9 +128,9 @@ function RegisterForm() {
                       variant: "success",
                     }));
                     setTimeout(() => {
+                      setLoading(false);
                       navigate("/auth/login");
                     }, 4000);
-                    setLoading(false);
                   }
                 }, 1000);
               }

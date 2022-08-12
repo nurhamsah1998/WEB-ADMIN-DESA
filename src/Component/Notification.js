@@ -45,10 +45,7 @@ export default function Notification({
         autoHideDuration={6000}
         onClose={handleClose}
       >
-        <Alert
-          severity={variant}
-          sx={{ width: "100%", textTransform: "capitalize" }}
-        >
+        <Alert severity={variant} sx={{ width: "100%" }}>
           {message}
         </Alert>
       </Snackbar>
