@@ -1,8 +1,9 @@
 import { Instagram, Facebook, Twitter, YouTube } from "@mui/icons-material";
 import { Box, Link } from "@mui/material";
 import React from "react";
-import Text from "../../../Component/Text";
-import { menu } from "../../../utils";
+import Text from "./Text";
+import { menu } from "../utils";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const socialMedia = [
   {
@@ -28,6 +29,9 @@ const socialMedia = [
 ];
 
 function Footer() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <Box
       sx={{
@@ -42,8 +46,9 @@ function Footer() {
           {menu.map((item, index) => {
             return (
               <Link
+                onClick={() => navigate(item.path)}
                 underline="none"
-                color="white"
+                color={location.pathname === item.path ? "#ffc800" : "white"}
                 fontWeight="600"
                 fontSize={{ xs: 9, sm: 14, md: 18 }}
                 sx={{ cursor: "pointer", marginX: 2 }}

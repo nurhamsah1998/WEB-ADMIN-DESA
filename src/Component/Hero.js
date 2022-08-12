@@ -1,9 +1,14 @@
 import React from "react";
-import { menu } from "../../../utils";
+import { menu } from "../utils";
 import { Box, Button, Grid, Link, Typography } from "@mui/material";
-import Text from "../../../Component/Text";
+import { useLocation, useNavigate } from "react-router-dom";
+import Text from "./Text";
+import "../App.css";
 
 function Hero() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <Box
       sx={{
@@ -26,7 +31,15 @@ function Hero() {
         >
           {menu.map((item, index) => {
             return (
-              <Link underline="none" color="white" fontSize={{ xs: 9, sm: 14, md: 18 }} fontWeight="700" key={index}>
+              <Link
+                className="navlink"
+                onClick={() => navigate(item.path)}
+                underline="none"
+                color={location.pathname === item.path ? "#ffc800" : "white"}
+                fontSize={{ xs: 9, sm: 14, md: 18 }}
+                fontWeight="700"
+                key={index}
+              >
                 {item.title}
               </Link>
             );

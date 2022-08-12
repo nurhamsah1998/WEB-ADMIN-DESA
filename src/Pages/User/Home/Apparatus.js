@@ -2,7 +2,7 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Avatar, Box } from "@mui/material";
+import { Avatar, Box, Link } from "@mui/material";
 import Text from "../../../Component/Text";
 import Slider from "react-slick";
 
@@ -46,21 +46,20 @@ export default function Apparatus() {
         Aparat Desa
       </Text>
       <Slider {...settings}></Slider>
-      <Box display={{ xs: "grid", sm: "flex" }} gap={4} style={{ overflowX: "scroll" }}>
+      <Box display={{ xs: "grid", sm: "grid", md: "flex", lg: "flex" }} gap={4} style={{ overflowX: "auto" }}>
         {data?.map((item, index) => {
           return (
-            <Card
-              key={index}
-              sx={{ maxWidth: 345, minWidth: 300, backgroundColor: "#F6F6F6" }}
-              onClick={() => alert("Bapa Mana?")}
-            >
+            <Card key={index} sx={{ maxWidth: 345, minWidth: 300, backgroundColor: "#F6F6F6" }}>
               <CardContent sx={{ display: "flex", justifyContent: "center" }}>
                 <Avatar src={item.image} sx={{ width: 80, height: 80 }} />
               </CardContent>
               <CardContent>
-                <Text subTitle textAlign="center" color="00385F">
-                  {`${item.name} - ${item.position}`}
-                </Text>
+                <Link underline="none" onClick={() => alert("Bapa Mana?")} sx={{ cursor: "pointer" }}>
+                  <Text subTitle textAlign="center" color="#00385F">
+                    {`${item.name} - ${item.position}`}
+                  </Text>
+                </Link>
+
                 <Typography variant="body2" color="text.secondary" marginTop={2}>
                   {item.description}
                 </Typography>
