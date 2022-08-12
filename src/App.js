@@ -5,7 +5,8 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Router from "./router";
-import UserRouter from "./userRouter";
+import { Notif } from "./Hooks/useContextNotification";
+import Notification from "./Component/Notification";
 
 function App() {
   const location = useLocation();
@@ -56,6 +57,12 @@ function App() {
   const isUser = location.pathname.includes("/web-desa/user");
   const isAdmin = localStorage.getItem("is-admin");
 
+  const [notif, setNotif] = React.useState({
+    message: "info",
+    variant: "info",
+    v: false,
+  });
+
   useEffect(() => {
     const getToken = localStorage.getItem("supabase.auth.token");
     if (getToken) {
@@ -68,13 +75,20 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      {isAdmin === "true" ? (
-        <DrawerMenu vicibility={isVicibility && !isUser}>
-          <Router admin={true} />
-        </DrawerMenu>
-      ) : (
-        <Router admin={false} />
-      )}
+      <Notif.Provider value={{ notif, setNotif }}>
+        {isAdmin === "true" ? (
+          <DrawerMenu vicibility={isVicibility && !isUser}>
+            <Router admin={true} />
+          </DrawerMenu>
+        ) : (
+          <Router admin={false} />
+        )}
+        <Notification
+          message={notif.message}
+          variant={notif.variant}
+          v={notif.v}
+        />
+      </Notif.Provider>
     </ThemeProvider>
   );
 }

@@ -1,5 +1,12 @@
-import React from "react";
-import { Box, Button, Checkbox, Link, TextField, Typography } from "@mui/material";
+import React, { useContext } from "react";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Link,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { grey, green } from "@mui/material/colors";
 import ListItemButton from "@mui/material/ListItemButton";
 import { Formik, Form } from "formik";
@@ -7,10 +14,14 @@ import { useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import supabase from "../../../Hooks/supabase";
+import LoadingButton from "../../../Component/LoadingButton";
+import { Notif } from "../../../Hooks/useContextNotification";
 
 function LoginForm() {
+  const { setNotif } = useContext(Notif);
   const navigate = useNavigate();
   const [show, setShow] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   return (
     <Box sx={{ width: "100%", mt: 20 }}>
@@ -40,7 +51,12 @@ function LoginForm() {
             <span style={{ color: grey[800] }}>DESA</span>
           </Typography>
         </Box>
-        <Typography mt={"74px"} variant="h4" textAlign={"center"} fontWeight={700}>
+        <Typography
+          mt={"74px"}
+          variant="h4"
+          textAlign={"center"}
+          fontWeight={700}
+        >
           Selamat Datang
         </Typography>
         <Box mt={10}>
@@ -53,11 +69,15 @@ function LoginForm() {
               password: "",
             }}
             onSubmit={async (values) => {
+              setLoading(true);
               let { user, error } = await supabase.auth.signIn({
                 ...values,
               });
               if (!error) {
-                const { data } = await supabase.from("USER_DEVELOPMENT").select("*").eq("user_id", user?.id);
+                const { data } = await supabase
+                  .from("USER_DEVELOPMENT")
+                  .select("*")
+                  .eq("user_id", user?.id);
                 if (data[0]?.is_admin) {
                   localStorage.setItem("is-admin", data[0]?.is_admin);
 
@@ -66,10 +86,17 @@ function LoginForm() {
                   localStorage.setItem("is-admin", data[0]?.is_admin);
                   navigate("/web-desa/user/home");
                 }
+                setLoading(false);
               }
               if (error) {
-                alert("AYOYO, APA SUDAH MACAM!!!!");
+                setNotif((e) => ({
+                  ...e,
+                  v: true,
+                  message: "coba periksa email dan password antum",
+                  variant: "error",
+                }));
               }
+              setLoading(false);
             }}
           >
             {({ getFieldProps }) => (
@@ -102,9 +129,15 @@ function LoginForm() {
                       />
                     </Box>
                   ))}
-                  <Button type="submit" sx={{ mt: 3 }} variant="contained" fullWidth>
-                    Masuk
-                  </Button>
+
+                  <LoadingButton
+                    fullWidth
+                    isLoading={loading}
+                    sx={{ mt: 3 }}
+                    variant="contained"
+                    type="submit"
+                    title="Masuk"
+                  />
                   <Box mt={3}>
                     <Typography textAlign="center">
                       Belum punya akun ?{" "}

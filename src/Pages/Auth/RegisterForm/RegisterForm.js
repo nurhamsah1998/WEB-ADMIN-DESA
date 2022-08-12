@@ -1,12 +1,5 @@
-import React from "react";
-import {
-  Box,
-  Button,
-  Checkbox,
-  TextField,
-  Typography,
-  Link,
-} from "@mui/material";
+import React, { useContext } from "react";
+import { Box, Checkbox, TextField, Typography, Link } from "@mui/material";
 import { grey, green } from "@mui/material/colors";
 import ListItemButton from "@mui/material/ListItemButton";
 import { useNavigate } from "react-router-dom";
@@ -14,10 +7,15 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Formik, Form } from "formik";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import supabase from "../../../Hooks/supabase";
+import LoadingButton from "../../../Component/LoadingButton";
+import Notification from "../../../Component/Notification";
+import { Notif } from "../../../Hooks/useContextNotification";
 
 function RegisterForm() {
+  const { setNotif } = useContext(Notif);
   const navigate = useNavigate();
   const [show, setShow] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   return (
     <Box sx={{ width: "100%", mt: 20 }}>
       <Box
@@ -66,6 +64,7 @@ function RegisterForm() {
               password: "",
             }}
             onSubmit={async (values) => {
+              setLoading(true);
               const { user, error } = await supabase.auth.signUp({
                 ...values,
               });
@@ -73,13 +72,31 @@ function RegisterForm() {
               const emailError = error?.message?.includes("email");
               const emailExist = error?.message?.includes("already ");
               if (passwordError) {
-                alert("sandi harus lebih 8 hurup");
+                setNotif((e) => ({
+                  ...e,
+                  v: true,
+                  message: "minimal password 8 karakter",
+                  variant: "error",
+                }));
+                setLoading(false);
                 return;
               } else if (emailError) {
-                alert("masukkan email yang valid");
+                setNotif((e) => ({
+                  ...e,
+                  v: true,
+                  message: "masukkan email yang valid",
+                  variant: "error",
+                }));
+                setLoading(false);
                 return;
               } else if (emailExist) {
-                alert("email sudah terdaftar");
+                setNotif((e) => ({
+                  ...e,
+                  v: true,
+                  message: "email sudah terdaftar",
+                  variant: "error",
+                }));
+                setLoading(false);
                 return;
               }
               if (user) {
@@ -95,14 +112,26 @@ function RegisterForm() {
                         is_admin: false,
                       },
                     ]);
+                  setLoading(false);
                   if (error) {
+                    setLoading(false);
                     console.log(error?.message);
                   } else {
-                    alert("register berhasil");
-                    window.location.reload();
+                    setNotif((e) => ({
+                      ...e,
+                      v: true,
+                      message:
+                        "alkhamdulillah register berhasil brader. mohon ditunggu. . .",
+                      variant: "success",
+                    }));
+                    setTimeout(() => {
+                      navigate("/auth/login");
+                    }, 4000);
+                    setLoading(false);
                   }
                 }, 1000);
               }
+              setLoading(false);
             }}
           >
             {({ values, getFieldProps }) => (
@@ -148,14 +177,15 @@ function RegisterForm() {
                       berlaku
                     </Typography>
                   </Box>
-                  <Button
-                    type="submit"
+
+                  <LoadingButton
+                    fullWidth
+                    isLoading={loading}
                     sx={{ mt: 3 }}
                     variant="contained"
-                    fullWidth
-                  >
-                    Daftar
-                  </Button>
+                    type="submit"
+                    title="Masuk"
+                  />
                   <Box mt={3}>
                     <Typography textAlign="center">
                       Sudah punya akun ?{" "}
