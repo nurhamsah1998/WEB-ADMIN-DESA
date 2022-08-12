@@ -36,3 +36,27 @@
     transform: rotate(360deg);
   }
 }
+.navlink{
+  position:relative;
+  display:inline-block;
+}
+.navlink::before{
+  color:white;
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #ffc800;
+      visibility: "hidden";
+      transition: all 0.3s ease-in-out;
+    
+}
+.navlink:hover::before{
+  visibility: visible;
+      width: 100%;
+      
+}
+
+

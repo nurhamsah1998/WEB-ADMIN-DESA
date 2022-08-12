@@ -42,18 +42,25 @@ function Events() {
       {events?.map((item, index) => {
         return (
           <Box key={index} marginBottom={2}>
-            <Grid container gap={4} sx={{ flexDirection: index % 2 == 0 ? "row" : "row-reverse" }}>
-              <Grid item xs={12} md={6}>
+            <Grid
+              container
+              sx={{
+                flexDirection: index % 2 == 0 ? "row" : "row-reverse",
+                marginBottom: { xs: 4, sm: 4, md: 10, lg: 12 },
+              }}
+            >
+              <Grid item xs={12} sm={12} md={12} lg={6}>
                 <Box
                   component="img"
                   sx={{
                     maxWidth: { xs: 328, sm: 480, md: 500 },
+                    borderRadius: "15px",
                   }}
                   alt="image"
                   src={item.image}
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} sm={12} md={12} lg={6}>
                 <Text title fontWeight="600">
                   {item.title}
                 </Text>

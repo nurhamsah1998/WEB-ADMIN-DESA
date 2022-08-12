@@ -1,17 +1,13 @@
-import { Box } from "@mui/system";
 import React from "react";
 import Apparatus from "./Apparatus";
 import Events from "./Event";
-import Footer from "./Footer";
-import Hero from "./Hero";
+import UserScreenLayout from "../../../Layout/UserScreenLayout";
 
 export default function Home() {
   return (
-    <Box>
-      <Hero />
+    <UserScreenLayout>
       <Events />
       <Apparatus />
-      <Footer />
-    </Box>
+    </UserScreenLayout>
   );
 }
