@@ -1,4 +1,4 @@
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, Divider } from "@mui/material";
 import React from "react";
 import Text from "../../../Component/Text";
 
@@ -6,32 +6,28 @@ const events = [
   {
     id: 1,
     title: "Rapat Hokage",
-    image: "../../Assets/img-home.png",
-    isRight: false,
+    image: "../../Assets/rapat.jpg",
     description:
       "Recrutamento de perfis altamente qualificados, trabalhamos com processos de seleção rápidos e eficazes, ajustados à necessidade de cada cliente.Quer necessite de um Gestor de projetos, de 10 programadores para implementar novas tecnologias ou de um administrador de redes, conhecemos o mercado de IT e sabemos como encontrar o profissional ideal.",
   },
   {
     id: 2,
     title: "Rapat kazekage",
-    image: "../../Assets/img-home.png",
-    isRight: true,
+    image: "../../Assets/rapat.jpg",
     description:
       "Recrutamento de perfis altamente qualificados, trabalhamos com processos de seleção rápidos e eficazes, ajustados à necessidade de cada cliente.Quer necessite de um Gestor de projetos, de 10 programadores para implementar novas tecnologias ou de um administrador de redes, conhecemos o mercado de IT e sabemos como encontrar o profissional ideal.",
   },
   {
     id: 3,
     title: "Rapat dukun",
-    image: "../../Assets/img-home.png",
-    isRight: false,
+    image: "../../Assets/rapat.jpg",
     description:
       "Recrutamento de perfis altamente qualificados, trabalhamos com processos de seleção rápidos e eficazes, ajustados à necessidade de cada cliente.Quer necessite de um Gestor de projetos, de 10 programadores para implementar novas tecnologias ou de um administrador de redes, conhecemos o mercado de IT e sabemos como encontrar o profissional ideal.",
   },
   {
     id: 4,
     title: "Rapat Hokage",
-    image: "../../Assets/img-home.png",
-    isRight: true,
+    image: "../../Assets/rapat.jpg",
     description:
       "Recrutamento de perfis altamente qualificados, trabalhamos com processos de seleção rápidos e eficazes, ajustados à necessidade de cada cliente.Quer necessite de um Gestor de projetos, de 10 programadores para implementar novas tecnologias ou de um administrador de redes, conhecemos o mercado de IT e sabemos como encontrar o profissional ideal.",
   },
@@ -39,23 +35,38 @@ const events = [
 
 function Events() {
   return (
-    <Box maxWidth="lg">
+    <Box maxWidth="lg" margin="auto" marginTop={4} padding={{ xs: 2, sm: 10, md: 10, lg: 10 }}>
+      <Text title large textAlign="center" marginBottom={{ xs: 3, sm: 10 }}>
+        Program dan Acara
+      </Text>
       {events?.map((item, index) => {
         return (
-          <Box key={index}>
-            <Grid container>
-              <Grid item>
+          <Box key={index} marginBottom={2}>
+            <Grid container gap={4} sx={{ flexDirection: index % 2 == 0 ? "row" : "row-reverse" }}>
+              <Grid item xs={12} md={6}>
                 <Box
                   component="img"
                   sx={{
-                    maxWidth: { xs: 250, sm: 400, md: 450 },
+                    maxWidth: { xs: 328, sm: 480, md: 500 },
                   }}
                   alt="image"
                   src={item.image}
                 />
               </Grid>
-              <Grid item>
-                <Text title>{item.title}</Text>
+              <Grid item xs={12} md={6}>
+                <Text title fontWeight="600">
+                  {item.title}
+                </Text>
+                <Box
+                  sx={{
+                    marginTop: 0.5,
+                    marginBottom: 2,
+                    width: { xs: 60, sm: 100 },
+                    height: { xs: 2, sm: 4 },
+                    backgroundColor: "#FFC800",
+                  }}
+                />
+                <Text paragraf>{item.description}</Text>
               </Grid>
             </Grid>
           </Box>
