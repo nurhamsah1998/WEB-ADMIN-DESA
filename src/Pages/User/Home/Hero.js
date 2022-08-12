@@ -1,22 +1,9 @@
-import { Box, Button, Grid, Link, Typography } from "@mui/material";
 import React from "react";
+import { menu } from "../../../utils";
+import { Box, Button, Grid, Link, Typography } from "@mui/material";
 import Text from "../../../Component/Text";
 
 function Hero() {
-  const menu = [
-    {
-      title: "Program",
-      path: "/web-desa/user-program",
-    },
-    {
-      title: "Pengaduan",
-      path: "/web-desa/user-complaint",
-    },
-    {
-      title: "Pengaturan",
-      path: "/web-desa/user-settings",
-    },
-  ];
   return (
     <Box
       sx={{
@@ -24,16 +11,22 @@ function Hero() {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        padding: { xs: 2, sm: 10, md: 10, xl: 10 },
+        padding: { xs: 2, sm: 10, md: 10, lg: 10 },
         display: "flex",
         justifyContent: "center",
       }}
     >
       <Box maxWidth="lg">
-        <Box display="flex" justifyContent="flex-end" gap={{ xs: 1, md: 3 }} marginBottom={{ xs: 4, sm: 8, md: 10 }}>
+        <Box
+          display="flex"
+          justifyContent="flex-end"
+          gap={{ xs: 1, md: 3 }}
+          marginBottom={{ xs: 4, sm: 8, md: 10 }}
+          sx={{ cursor: "pointer" }}
+        >
           {menu.map((item, index) => {
             return (
-              <Link underline="none" color="white" fontSize={{ xs: 10, sm: 14, md: 18 }} fontWeight="700" key={index}>
+              <Link underline="none" color="white" fontSize={{ xs: 9, sm: 14, md: 18 }} fontWeight="700" key={index}>
                 {item.title}
               </Link>
             );
@@ -48,7 +41,7 @@ function Hero() {
               Trabalhamos com as tecnologias mais atuais e oferecemos as melhores soluções para o seu negócio.
             </Text>
 
-            <Button variant="contained" sx={{ marginTop: { xs: 2, sm: 4 } }}>
+            <Button variant="contained" size="small" sx={{ marginTop: { xs: 2, sm: 4 } }}>
               Blog
             </Button>
           </Grid>
