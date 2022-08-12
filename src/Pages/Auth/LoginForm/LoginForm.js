@@ -70,6 +70,16 @@ function LoginForm() {
             }}
             onSubmit={async (values) => {
               setLoading(true);
+              if (values.email?.length <= 0 || values.password?.length <= 0) {
+                setNotif((e) => ({
+                  ...e,
+                  v: true,
+                  message: "semua form wajib diisi",
+                  variant: "error",
+                }));
+                setLoading(false);
+                return;
+              }
               let { user, error } = await supabase.auth.signIn({
                 ...values,
               });

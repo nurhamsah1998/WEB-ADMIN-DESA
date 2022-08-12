@@ -65,6 +65,21 @@ function RegisterForm() {
             }}
             onSubmit={async (values) => {
               setLoading(true);
+              if (
+                values.email?.length <= 0 ||
+                values.name?.length <= 0 ||
+                values.nik?.length <= 0 ||
+                values.password?.length <= 0
+              ) {
+                setNotif((e) => ({
+                  ...e,
+                  v: true,
+                  message: "semua form wajib diisi",
+                  variant: "error",
+                }));
+                setLoading(false);
+                return;
+              }
               const { user, error } = await supabase.auth.signUp({
                 ...values,
               });
