@@ -197,7 +197,7 @@ function DrawerMenu({ children, vicibility = true }) {
         component="main"
         sx={{
           flexGrow: 1,
-          p: vicibility ? { xs: 0, md: 3 } : 0,
+          p: vicibility ? { xs: 1, md: 3 } : 0,
           bgcolor: grey[100],
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}

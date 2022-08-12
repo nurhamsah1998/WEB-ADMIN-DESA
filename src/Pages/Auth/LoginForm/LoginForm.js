@@ -61,7 +61,7 @@ function LoginForm() {
         </Typography>
         <Box mt={10}>
           <Typography variant="h6" fontWeight={400}>
-            Masuk ke anda
+            Masuk ke akun anda
           </Typography>
           <Formik
             initialValues={{
