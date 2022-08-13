@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-function TableComponen({ tableHead, tableBody, isImage }) {
+function TableComponen({ tableHead, tableBody, isImage, handleClickReply }) {
   return (
     <Box sx={{ bgcolor: "#fff" }}>
       <Table>
@@ -34,14 +34,31 @@ function TableComponen({ tableHead, tableBody, isImage }) {
               {tableHead?.map((head, index) => (
                 <TableCell sx={{ border: "none" }} key={index}>
                   {head.isImage ? (
-                    <Box>
-                      <Box
-                        sx={{ width: "20px", height: "30px", bgcolor: "red" }}
-                      ></Box>
+                    <Box sx={{ display: "flex", gap: 2 }}>
                       <Box>
-                        <Typography>{body[head.id]}</Typography>
-                        <Typography>{body.nik}</Typography>
+                        <img
+                          width="90px"
+                          style={{ borderRadius: "12px" }}
+                          src={body.image}
+                        />
                       </Box>
+                      <Box>
+                        <Typography textTransform="capitalize" fontWeight={600}>
+                          {body[head.id]}
+                        </Typography>
+                        <Typography fontSize={14} color={grey[500]}>
+                          NIK : {body.nik}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  ) : head.isGrid ? (
+                    <Box>
+                      <Typography textTransform="capitalize" fontWeight={600}>
+                        {body[head.id]}
+                      </Typography>
+                      <Typography fontSize={14} color={grey[500]}>
+                        {body.status}
+                      </Typography>
                     </Box>
                   ) : (
                     body[head.id]
@@ -49,7 +66,12 @@ function TableComponen({ tableHead, tableBody, isImage }) {
                 </TableCell>
               ))}
               <TableCell sx={{ border: "none" }}>
-                <Button variant="contained">balas</Button>
+                <Button
+                  onClick={() => handleClickReply(body)}
+                  variant="contained"
+                >
+                  balas
+                </Button>
               </TableCell>
             </TableRow>
           ))}

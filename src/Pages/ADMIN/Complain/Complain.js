@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, Typography } from "@mui/material";
 import TableComponen from "../../../Component/TableComponen";
 import { grey } from "@mui/material/colors";
+import { Notif } from "../../../Hooks/useContextNotification";
 
 function Complain() {
+  const { setNotif } = useContext(Notif);
   const tableHead = [
     {
       id: "profile",
@@ -13,6 +15,7 @@ function Complain() {
     {
       id: "program",
       label: "Program terakhir",
+      isGrid: true,
     },
     {
       id: "comment",
@@ -21,27 +24,50 @@ function Complain() {
   ];
   const tableBody = [
     {
-      profile: "nurhasmah",
+      profile: "Marpingah komboran",
       nik: 345345345,
+      image:
+        "https://images.pexels.com/photos/1608113/pexels-photo-1608113.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       comment: '"testing comment"',
+      status: "ngaktip",
       program: "PKH",
     },
     {
-      profile: "hamsah",
+      profile: "yu siti bakol astor",
+      nik: 7456456465,
+      image:
+        "https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       comment: '"testing comment"',
+      status: "ngaktip",
       program: "Bantuan",
     },
     {
-      profile: "minyak",
+      profile: "pangat tembel ban",
+      nik: 67868786,
+      image:
+        "https://images.pexels.com/photos/3974749/pexels-photo-3974749.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       comment: '"testing comment"',
+      status: "ngaktip",
       program: "Pelayanan",
     },
     {
-      profile: "guulo",
+      profile: "pak yatim angkrang",
+      nik: 532234558,
+      image:
+        "https://images.pexels.com/photos/3781984/pexels-photo-3781984.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       comment: '"testing comment"',
+      status: "ngaktip",
       program: "Emergency",
     },
   ];
+  const handleClickReply = (i) => {
+    setNotif((e) => ({
+      ...e,
+      v: true,
+      message: i?.profile,
+      variant: "info",
+    }));
+  };
   return (
     <Box>
       <Box>
@@ -51,7 +77,11 @@ function Complain() {
         </Typography>
       </Box>
       <Box mt={1}>
-        <TableComponen tableHead={tableHead} tableBody={tableBody} />
+        <TableComponen
+          tableHead={tableHead}
+          handleClickReply={handleClickReply}
+          tableBody={tableBody}
+        />
       </Box>
     </Box>
   );
