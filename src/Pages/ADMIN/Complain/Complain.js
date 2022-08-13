@@ -24,39 +24,39 @@ function Complain() {
   ];
   const tableBody = [
     {
-      profile: "Marpingah komboran",
+      profile: "user 1",
       nik: 345345345,
       image:
         "https://images.pexels.com/photos/1608113/pexels-photo-1608113.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       comment: '"testing comment"',
-      status: "ngaktip",
+      status: "aktif",
       program: "PKH",
     },
     {
-      profile: "yu siti bakol astor",
+      profile: "user 2",
       nik: 7456456465,
       image:
         "https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       comment: '"testing comment"',
-      status: "ngaktip",
+      status: "aktif",
       program: "Bantuan",
     },
     {
-      profile: "pangat tembel ban",
+      profile: "user 3",
       nik: 67868786,
       image:
         "https://images.pexels.com/photos/3974749/pexels-photo-3974749.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       comment: '"testing comment"',
-      status: "ngaktip",
+      status: "aktif",
       program: "Pelayanan",
     },
     {
-      profile: "pak yatim angkrang",
+      profile: "user 4",
       nik: 532234558,
       image:
         "https://images.pexels.com/photos/3781984/pexels-photo-3781984.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       comment: '"testing comment"',
-      status: "ngaktip",
+      status: "aktif",
       program: "Emergency",
     },
   ];
