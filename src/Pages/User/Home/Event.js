@@ -34,6 +34,8 @@ const events = [
 ];
 
 function Events() {
+  const innerWidth = window.innerWidth - 36;
+
   return (
     <Box maxWidth="lg" margin="auto" marginTop={4} padding={{ xs: 2, sm: 10, md: 10, lg: 10 }}>
       <Text title large textAlign="center" marginBottom={{ xs: 3, sm: 10 }}>
@@ -53,7 +55,7 @@ function Events() {
                 <Box
                   component="img"
                   sx={{
-                    maxWidth: { xs: 328, sm: 480, md: 500 },
+                    maxWidth: { xs: innerWidth, sm: 480, md: 500 },
                     borderRadius: "15px",
                   }}
                   alt="image"

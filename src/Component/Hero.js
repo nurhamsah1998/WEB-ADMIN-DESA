@@ -2,6 +2,8 @@ import React from "react";
 import { menu } from "../utils";
 import { Box, Button, Grid, Link, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
+import MenuIcon from "@mui/icons-material/Menu";
+import LeftDrawer from "./Drawer/LeftDrawer";
 import Text from "./Text";
 import "../App.css";
 
@@ -23,7 +25,16 @@ function Hero() {
     >
       <Box maxWidth="lg">
         <Box
-          display="flex"
+          display={{ xs: "flex", sm: "none" }}
+          justifyContent="flex-end"
+          gap={{ xs: 1, md: 3 }}
+          marginBottom={{ xs: 4, sm: 8, md: 10 }}
+          sx={{ cursor: "pointer" }}
+        >
+          <LeftDrawer />
+        </Box>
+        <Box
+          display={{ xs: "none", sm: "flex" }}
           justifyContent="flex-end"
           gap={{ xs: 1, md: 3 }}
           marginBottom={{ xs: 4, sm: 8, md: 10 }}

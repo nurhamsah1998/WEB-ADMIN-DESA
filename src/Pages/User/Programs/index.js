@@ -5,6 +5,8 @@ import Text from "../../../Component/Text";
 import { maxHeight } from "@mui/system";
 
 function UserProgram() {
+  const innerWidth = window.innerWidth - 36;
+
   const data = [
     {
       title: "Program masker gratis",
@@ -82,7 +84,7 @@ function UserProgram() {
                   <Box
                     component="img"
                     sx={{
-                      maxWidth: { xs: 328, sm: 480, md: 380 },
+                      maxWidth: { xs: innerWidth, sm: 480, md: 380 },
                       borderRadius: "15px",
                     }}
                     alt="image"
