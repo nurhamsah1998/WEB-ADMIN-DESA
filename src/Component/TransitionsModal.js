@@ -5,6 +5,7 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import { green } from "@mui/material/colors";
+import { Button } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -23,6 +24,7 @@ export default function TransitionsModal({
   handleClose,
   title,
   children,
+  handleSubmit,
 }) {
   return (
     <div>
@@ -42,8 +44,21 @@ export default function TransitionsModal({
             <Typography id="transition-modal-title" variant="h6" component="h2">
               {title}
             </Typography>
-            <Box sx={{ bgcolor: "#f1fffe", p: 2, borderRadius: "5px", mt: 1 }}>
-              {children}
+            <Box sx={{ p: 2, borderRadius: "5px", mt: 1 }}>{children}</Box>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                gap: 2,
+              }}
+            >
+              <Button onClick={handleClose} variant="contained" color="error">
+                cancel
+              </Button>
+              <Button variant="contained" type="submit" onClick={handleSubmit}>
+                submit
+              </Button>
             </Box>
           </Box>
         </Fade>
