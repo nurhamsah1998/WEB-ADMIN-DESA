@@ -2,10 +2,15 @@ import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useLocation, useNavigate } from "react-router-dom";
 import InfoIcon from "@mui/icons-material/Info";
+import supabase from "../../../Hooks/supabase";
 import FestivalIcon from "@mui/icons-material/Festival";
+import CreateProgram from "./CreateProgram";
 
 function Program() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const data = [
     {
       title: "Program masker gratis",
@@ -67,7 +72,11 @@ function Program() {
   return (
     <Box>
       <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 5 }}>
-        <Button startIcon={<FestivalIcon />} variant="contained">
+        <Button
+          startIcon={<FestivalIcon />}
+          onClick={() => navigate("?create-program=true")}
+          variant="contained"
+        >
           Tambah program
         </Button>
       </Box>
@@ -137,6 +146,7 @@ function Program() {
           </Box>
         ))}
       </Box>
+      <CreateProgram />
     </Box>
   );
 }

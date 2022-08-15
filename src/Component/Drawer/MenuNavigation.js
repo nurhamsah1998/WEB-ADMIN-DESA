@@ -26,7 +26,7 @@ export const NavigationMenu = [
   {
     tag: "galery",
     label: "Dokumen",
-    path: "/web-desa/news",
+    path: "/web-desa/document",
     color: blue[500],
     icon: <NewspaperIcon />,
   },
