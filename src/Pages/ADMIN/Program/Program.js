@@ -20,6 +20,11 @@ function Program() {
   });
   const location = useLocation();
   const { items } = useFetch({ module: "PROGRAMS" });
+  // const { items: data } = useFetch({
+  //   module: "USER_DEVELOPMENT",
+  //   select: `*, vilage:village_id(*)`,
+  // });
+  // console.log(data, "ini");
   const navigate = useNavigate();
 
   const handleDelete = (i, e) => {

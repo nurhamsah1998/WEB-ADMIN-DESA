@@ -33,6 +33,7 @@ function CreateProgram() {
           title: "",
           desc: "",
           image: [],
+          village_id: localStorage.getItem("village-id") || "",
         }}
         onSubmit={async (values) => {
           setLoading(true);

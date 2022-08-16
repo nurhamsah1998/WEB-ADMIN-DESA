@@ -1,5 +1,12 @@
 import React, { useContext } from "react";
-import { Box, Checkbox, TextField, Typography, Link } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  TextField,
+  Typography,
+  Link,
+  Autocomplete,
+} from "@mui/material";
 import { grey, green } from "@mui/material/colors";
 import ListItemButton from "@mui/material/ListItemButton";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +23,14 @@ function RegisterForm() {
   const navigate = useNavigate();
   const [show, setShow] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [dataFetch, setDataFetch] = React.useState([]);
+  const getData = async () => {
+    const { data } = await supabase.from("VILLAGE").select("*");
+    setDataFetch(data);
+  };
+  React.useEffect(() => {
+    getData();
+  }, []);
   return (
     <Box sx={{ width: "100%", mt: 20 }}>
       <Box
@@ -62,97 +77,99 @@ function RegisterForm() {
               nik: "",
               email: "",
               password: "",
+              village_id: "",
             }}
             onSubmit={async (values) => {
-              setLoading(true);
-              if (
-                values.email?.length <= 0 ||
-                values.name?.length <= 0 ||
-                values.nik?.length <= 0 ||
-                values.password?.length <= 0
-              ) {
-                setNotif((e) => ({
-                  ...e,
-                  v: true,
-                  message: "semua form wajib diisi",
-                  variant: "error",
-                }));
-                setLoading(false);
-                return;
-              }
-              const { user, error } = await supabase.auth.signUp({
-                ...values,
-              });
-              const passwordError = error?.message?.includes("characters");
-              const emailError = error?.message?.includes("email");
-              const emailExist = error?.message?.includes("already ");
-              if (passwordError) {
-                setNotif((e) => ({
-                  ...e,
-                  v: true,
-                  message: "minimal password 8 karakter",
-                  variant: "error",
-                }));
-                setLoading(false);
-                return;
-              } else if (emailError) {
-                setNotif((e) => ({
-                  ...e,
-                  v: true,
-                  message: "masukkan email yang valid",
-                  variant: "error",
-                }));
-                setLoading(false);
-                return;
-              } else if (emailExist) {
-                setNotif((e) => ({
-                  ...e,
-                  v: true,
-                  message:
-                    "sepertinya email sudah terdaftar. coba masukkan emal lain.",
-                  variant: "error",
-                }));
-                setLoading(false);
-                return;
-              }
-              if (user) {
-                setLoading(true);
-                setTimeout(async () => {
-                  const USER_ID = supabase?.auth.user();
-                  console.log(USER_ID?.id);
-                  const { data, error } = await supabase
-                    .from("USER_DEVELOPMENT")
-                    .insert([
-                      {
-                        user_id: USER_ID?.id,
-                        name: values?.name,
-                        is_admin: false,
-                      },
-                    ]);
-                  setLoading(false);
-                  if (error) {
-                    setLoading(false);
-                    console.log(error?.message);
-                  } else {
-                    setLoading(true);
-                    setNotif((e) => ({
-                      ...e,
-                      v: true,
-                      message:
-                        "alkhamdulillah register berhasil brader. mohon ditunggu. . .",
-                      variant: "success",
-                    }));
-                    setTimeout(() => {
-                      setLoading(false);
-                      navigate("/auth/login");
-                    }, 4000);
-                  }
-                }, 1000);
-              }
-              setLoading(false);
+              // setLoading(true);
+              // if (
+              //   values.email?.length <= 0 ||
+              //   values.name?.length <= 0 ||
+              //   values.nik?.length <= 0 ||
+              //   values.password?.length <= 0
+              // ) {
+              //   setNotif((e) => ({
+              //     ...e,
+              //     v: true,
+              //     message: "semua form wajib diisi",
+              //     variant: "error",
+              //   }));
+              //   setLoading(false);
+              //   return;
+              // }
+              // const { user, error } = await supabase.auth.signUp({
+              //   ...values,
+              // });
+              // const passwordError = error?.message?.includes("characters");
+              // const emailError = error?.message?.includes("email");
+              // const emailExist = error?.message?.includes("already ");
+              // if (passwordError) {
+              //   setNotif((e) => ({
+              //     ...e,
+              //     v: true,
+              //     message: "minimal password 8 karakter",
+              //     variant: "error",
+              //   }));
+              //   setLoading(false);
+              //   return;
+              // } else if (emailError) {
+              //   setNotif((e) => ({
+              //     ...e,
+              //     v: true,
+              //     message: "masukkan email yang valid",
+              //     variant: "error",
+              //   }));
+              //   setLoading(false);
+              //   return;
+              // } else if (emailExist) {
+              //   setNotif((e) => ({
+              //     ...e,
+              //     v: true,
+              //     message:
+              //       "sepertinya email sudah terdaftar. coba masukkan emal lain.",
+              //     variant: "error",
+              //   }));
+              //   setLoading(false);
+              //   return;
+              // }
+              // if (user) {
+              //   setLoading(true);
+              //   setTimeout(async () => {
+              //     const USER_ID = supabase?.auth.user();
+              //     console.log(USER_ID?.id);
+              //     const { data, error } = await supabase
+              //       .from("USER_DEVELOPMENT")
+              //       .insert([
+              //         {
+              //           user_id: USER_ID?.id,
+              //           name: values?.name,
+              //           is_admin: false,
+              //         },
+              //       ]);
+              //     setLoading(false);
+              //     if (error) {
+              //       setLoading(false);
+              //       console.log(error?.message);
+              //     } else {
+              //       setLoading(true);
+              //       setNotif((e) => ({
+              //         ...e,
+              //         v: true,
+              //         message:
+              //           "alkhamdulillah register berhasil brader. mohon ditunggu. . .",
+              //         variant: "success",
+              //       }));
+              //       setTimeout(() => {
+              //         setLoading(false);
+              //         navigate("/auth/login");
+              //       }, 4000);
+              //     }
+              //   }, 1000);
+              // }
+              // setLoading(false);\
+              console.log(values);
             }}
           >
-            {({ values, getFieldProps }) => (
+            {({ values, getFieldProps, setFieldValue }) => (
               <Form>
                 <Box>
                   {[
@@ -163,6 +180,12 @@ function RegisterForm() {
                       type: "email",
                     },
                     { name: "nik", placeholder: "NIK", type: "number" },
+                    {
+                      name: "address",
+                      placeholder: "desa",
+                      isAutoComplete: true,
+                    },
+
                     {
                       name: "password",
                       placeholder: "password",
@@ -177,17 +200,37 @@ function RegisterForm() {
                         </ListItemButton>
                       ),
                     },
-                  ].map((item, index) => (
-                    <Box key={index} sx={{ mt: 3 }}>
-                      <TextField
-                        InputProps={{ endAdornment: item.icon }}
-                        fullWidth
-                        type={item.type}
-                        {...getFieldProps(item.name)}
-                        label={item.placeholder}
-                      />
-                    </Box>
-                  ))}
+                  ].map((item, index) => {
+                    if (item.isAutoComplete) {
+                      return (
+                        <Autocomplete
+                          disablePortal
+                          getOptionLabel={dataFetch?.map(
+                            (item) => item?.address[0]?.name
+                          )}
+                          options={dataFetch || null}
+                          sx={{ width: 300 }}
+                          onChange={(e, i) => {
+                            console.log(i);
+                          }}
+                          renderInput={(params) => (
+                            <TextField {...params} label="pilih desa" />
+                          )}
+                        />
+                      );
+                    }
+                    return (
+                      <Box key={index} sx={{ mt: 3 }}>
+                        <TextField
+                          InputProps={{ endAdornment: item.icon }}
+                          fullWidth
+                          type={item.type}
+                          {...getFieldProps(item.name)}
+                          label={item.placeholder}
+                        />
+                      </Box>
+                    );
+                  })}
                   <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
                     <Checkbox />
                     <Typography fontSize={14}>
