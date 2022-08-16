@@ -4,16 +4,44 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useLocation, useNavigate } from "react-router-dom";
 import InfoIcon from "@mui/icons-material/Info";
+import MutationDelete from "../../../Hooks/Mutation/MutationDeleete";
 import useFetch from "../../../Hooks/useFetch";
 import FestivalIcon from "@mui/icons-material/Festival";
 import CreateProgram from "./CreateProgram";
+import { FormatDate } from "../../../Component/FormatDate";
+import TransitionsModal from "../../../Component/TransitionsModal";
 
 function Program() {
+  const [id, setId] = React.useState(null);
+  const { mutation, isLoading } = MutationDelete({
+    module: "PROGRAMS",
+    errorMessage: "gagal menghapus program",
+    successMessage: "berhasil menghapus program",
+  });
   const location = useLocation();
   const { items } = useFetch({ module: "PROGRAMS" });
   const navigate = useNavigate();
+
+  const handleDelete = (i, e) => {
+    setId(i);
+    if (e === "delete") {
+      mutation.mutate(i);
+    } else {
+      navigate(`?${i}`);
+    }
+  };
   return (
     <Box>
+      <TransitionsModal
+        isLoading={isLoading}
+        handleSubmit={() => handleDelete("event", "delete")}
+        title="Tambah program"
+        handleClose={() => navigate(-1)}
+        open={location.search.includes(`?${id}`)}
+      >
+        apakah anda yakin ingin menghapus? menghapus berati anda telah
+        brader!!!!!
+      </TransitionsModal>
       <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 5 }}>
         <Button
           startIcon={<FestivalIcon />}
@@ -54,7 +82,9 @@ function Program() {
               >
                 <Box>
                   <Typography>{item.title}</Typography>
-                  <Typography fontSize={13}>{item.created_at}</Typography>
+                  <Typography fontSize={13}>
+                    {FormatDate(item.created_at)}
+                  </Typography>
                 </Box>
                 <Box sx={{ display: "flex", gap: 2 }}>
                   <Button
@@ -66,6 +96,7 @@ function Program() {
                     <EditIcon />
                   </Button>
                   <Button
+                    onClick={() => handleDelete(item?.id)}
                     sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
                     size="small"
                     color="error"

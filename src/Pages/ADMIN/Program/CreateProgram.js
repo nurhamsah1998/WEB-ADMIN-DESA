@@ -1,14 +1,12 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
-import { Notif } from "../../../Hooks/useContextNotification";
 import FormAdd from "./FormAdd";
 import supabase from "../../../Hooks/supabase";
 import MutationPost from "../../../Hooks/Mutation/MutationPost";
 import TransitionsModal from "../../../Component/TransitionsModal";
 
 function CreateProgram() {
-  const { setNotif } = useContext(Notif);
   const [loading, setLoading] = React.useState(false);
   const { mutation } = MutationPost({
     module: "PROGRAMS",

@@ -23,6 +23,8 @@ function FormAdd({ getFieldProps, setFieldValue }) {
           name: "desc",
           label: "diskripsi",
           placeholder: "diskripsi",
+          isMultiline: true,
+          rows: 6,
         },
       ].map((item, index) => (
         <Box key={index}>
@@ -32,6 +34,8 @@ function FormAdd({ getFieldProps, setFieldValue }) {
           <TextField
             {...getFieldProps(item.name)}
             fullWidth
+            multiline={item.isMultiline}
+            rows={item.rows}
             sx={{ mb: 2 }}
             placeholder={item.placeholder}
           />
