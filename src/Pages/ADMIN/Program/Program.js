@@ -4,71 +4,14 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useLocation, useNavigate } from "react-router-dom";
 import InfoIcon from "@mui/icons-material/Info";
-import supabase from "../../../Hooks/supabase";
+import useFetch from "../../../Hooks/useFetch";
 import FestivalIcon from "@mui/icons-material/Festival";
 import CreateProgram from "./CreateProgram";
 
 function Program() {
   const location = useLocation();
+  const { items } = useFetch({ module: "PROGRAMS" });
   const navigate = useNavigate();
-  const data = [
-    {
-      title: "Program masker gratis",
-      image:
-        "https://images.pexels.com/photos/296302/pexels-photo-296302.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      tag: "lorem ipsunm jasj ,sajsaasdasd  dm jasj  ,sajsajdj hjhsiuhds jjjuadnnlaasff uas ns ihssiaissd haiushsalorem ipsunm jasj  ,sajsajdj hjhsiuhds jjjuadnnlaasff uas ns ihssiaissd haiushsa",
-      date: "23 januari 2019",
-    },
-    {
-      title: "Program masker gratis",
-      image:
-        "https://images.pexels.com/photos/3662667/pexels-photo-3662667.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      tag: "lojsajdj hjhsiuhds jjjuadnnlaasff uas ns ihssiaissd haiushsalorem ipsunm jasj  ,sajsajdj hjhsiuhds jjjuadnnlaasff uas ns ihssiaissd haiushsalorem ipsunm jasj  ,sajsajdj hjhsiuhds jjjuadnnlaasff uas ns ihssiaissd haiushsalorem ipsunm jasj  ,sajsajdj hjhsiuhds jjjuadnnlaasff uas ns ihssiaissd haiushsalorem ipsunm jasj  ,sajsajdj hjhsiuhds jjjuadnnlaasff uas ns ihssiaissd haiushsa",
-      date: "23 januari 2019",
-    },
-    {
-      title: "Program masker gratis",
-      image:
-        "https://images.pexels.com/photos/939702/pexels-photo-939702.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      tag: "lorem ipsunm jasj ,sajsau elit deserunt Lorasdas das dasdasdasd as as dasdasdasdasd asdasdasd asdasdasdsad asdasdasdasd asdadasdas asdasdasd as as das dem ipsum animasdasd  asdasdasd asdasdasd asdasdasdasd asdasd asdas dasd asdasd asdas dasdasdasdasd as asdasdasdas as dasdas asd  laboru",
-      date: "23 januari 2019",
-    },
-    {
-      title: "Program masker gratis",
-      image:
-        "https://images.pexels.com/photos/939702/pexels-photo-939702.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      tag: "lorem ipsunm jasj ,sajsau elit deserunt Lorasdas das dasdasdasd as as dasdasdasdasd asdasdasd asdasdasdsad asdasdasdasd asdadasdas asdasdasd as as das dem ipsum animasdasd  asdasdasd asdasdasd asdasdasdasd asdasd asdas dasd asdasd asdas dasdasdasdasd as asdasdasdas as dasdas asd  laboru",
-      date: "23 januari 2019",
-    },
-    {
-      title: "Program masker gratis",
-      image:
-        "https://images.pexels.com/photos/939702/pexels-photo-939702.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      tag: "lorem ipsunm jasj ,sajsau elit deserunt Lorasdas das dasdasdasd as as dasdasdasdasd asdasdasd asdasdasdsad asdasdasdasd asdadasdas asdasdasd as as das dem ipsum animasdasd  asdasdasd asdasdasd asdasdasdasd asdasd asdas dasd asdasd asdas dasdasdasdasd as asdasdasdas as dasdas asd  laboru",
-      date: "23 januari 2019",
-    },
-    {
-      title: "Program masker gratis",
-      image:
-        "https://images.pexels.com/photos/939702/pexels-photo-939702.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      tag: "lorem ipsunm jasj ,sajsau elit deserunt Lorasdas das dasdasdasd as as dasdasdasdasd asdasdasd asdasdasdsad asdasdasdasd asdadasdas asdasdasd as as das dem ipsum animasdasd  asdasdasd asdasdasd asdasdasdasd asdasd asdas dasd asdasd asdas dasdasdasdasd as asdasdasdas as dasdas asd  laboru",
-      date: "23 januari 2019",
-    },
-    {
-      title: "Program masker gratis",
-      image:
-        "https://images.pexels.com/photos/939702/pexels-photo-939702.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      tag: "lorem ipsunm jasj ,sajsau elit deserunt Lorasdas das dasdasdasd as as dasdasdasdasd asdasdasd asdasdasdsad asdasdasdasd asdadasdas asdasdasd as as das dem ipsum animasdasd  asdasdasd asdasdasd asdasdasdasd asdasd asdas dasd asdasd asdas dasdasdasdasd as asdasdasdas as dasdas asd  laboru",
-      date: "23 januari 2019",
-    },
-    {
-      title: "Program masker gratis",
-      image:
-        "https://images.pexels.com/photos/939702/pexels-photo-939702.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      tag: "lorem ipsunm jasj ,sajsau elit deserunt Lorasdas das dasdasdasd as as dasdasdasdasd asdasdasd asdasdasdsad asdasdasdasd asdadasdas asdasdasd as as das dem ipsum animasdasd  asdasdasd asdasdasd asdasdasdasd asdasd asdas dasd asdasd asdas dasdasdasdasd as asdasdasdas as dasdas asd  laboru",
-      date: "23 januari 2019",
-    },
-  ];
   return (
     <Box>
       <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 5 }}>
@@ -81,7 +24,7 @@ function Program() {
         </Button>
       </Box>
       <Box>
-        {data.map((item, index) => (
+        {items?.map((item, index) => (
           <Box
             key={index}
             sx={{
@@ -98,10 +41,10 @@ function Program() {
             <Box sx={{ maxWidth: "100%", borderRadius: "5px" }}>
               <img
                 style={{ borderRadius: "15px", width: "350px" }}
-                src={item.image}
+                src={item.image[0]?.link}
               />
             </Box>
-            <Box ml={5}>
+            <Box ml={5} width="100%">
               <Box
                 sx={{
                   display: "flex",
@@ -111,7 +54,7 @@ function Program() {
               >
                 <Box>
                   <Typography>{item.title}</Typography>
-                  <Typography fontSize={13}>{item.date}</Typography>
+                  <Typography fontSize={13}>{item.created_at}</Typography>
                 </Box>
                 <Box sx={{ display: "flex", gap: 2 }}>
                   <Button
@@ -140,7 +83,7 @@ function Program() {
                 </Box>
               </Box>
               <Box>
-                <Typography mt={3}>{item.tag}</Typography>
+                <Typography mt={3}>{item.desc}</Typography>
               </Box>
             </Box>
           </Box>

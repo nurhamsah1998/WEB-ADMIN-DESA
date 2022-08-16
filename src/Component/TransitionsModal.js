@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
+import LoadingButton from "./LoadingButton";
 import { green } from "@mui/material/colors";
 import { Button } from "@mui/material";
 
@@ -25,6 +26,7 @@ export default function TransitionsModal({
   title,
   children,
   handleSubmit,
+  isLoading,
 }) {
   return (
     <div>
@@ -53,12 +55,19 @@ export default function TransitionsModal({
                 gap: 2,
               }}
             >
-              <Button onClick={handleClose} variant="contained" color="error">
-                cancel
-              </Button>
-              <Button variant="contained" type="submit" onClick={handleSubmit}>
-                submit
-              </Button>
+              <LoadingButton
+                onClick={handleClose}
+                variant="contained"
+                title="batal"
+                color="error"
+              />
+              <LoadingButton
+                variant="contained"
+                title="Simpan"
+                type="submit"
+                isLoading={isLoading}
+                onClick={handleSubmit}
+              />
             </Box>
           </Box>
         </Fade>

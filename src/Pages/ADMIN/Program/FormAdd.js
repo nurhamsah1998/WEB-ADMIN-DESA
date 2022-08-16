@@ -2,15 +2,18 @@ import React from "react";
 import { Form } from "formik";
 import { TextField, Box, Typography } from "@mui/material";
 
-function FormAdd({ getFieldProps }) {
+function FormAdd({ getFieldProps, setFieldValue }) {
+  const handleUpload = (e) => {
+    const path = e.target.files[0];
+    const link = URL.createObjectURL(path);
+    setFieldValue("image", { link: link, file: path });
+  };
   return (
     <Form>
+      <Box>
+        <input type="file" onChange={handleUpload} />
+      </Box>
       {[
-        {
-          name: "image",
-          label: "gambar",
-          placeholder: "gambar",
-        },
         {
           name: "title",
           label: "judul",
