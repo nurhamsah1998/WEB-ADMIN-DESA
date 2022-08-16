@@ -12,6 +12,8 @@ function CreateProgram() {
   const [loading, setLoading] = React.useState(false);
   const { mutation } = MutationPost({
     module: "PROGRAMS",
+    errorMessage: "gagal menambah program",
+    successMessage: "berhasil menambah program",
   });
   const location = useLocation();
   const navigate = useNavigate();
