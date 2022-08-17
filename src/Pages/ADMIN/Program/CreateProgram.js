@@ -5,6 +5,7 @@ import FormAdd from "./FormAdd";
 import supabase from "../../../Hooks/supabase";
 import MutationPost from "../../../Hooks/Mutation/MutationPost";
 import TransitionsModal from "../../../Component/TransitionsModal";
+import useFetchByTrigger from "../../../Hooks/useFetchByTrigger";
 
 function CreateProgram() {
   const [loading, setLoading] = React.useState(false);
@@ -19,6 +20,11 @@ function CreateProgram() {
   const handleSubmit = () => {
     formRef.current?.handleSubmit();
   };
+  const { items } = useFetchByTrigger({
+    module: "USER_DEVELOPMENT",
+    enabled: location.search.includes("?create-program=true"),
+  });
+  console.log(items, "create");
   return (
     <TransitionsModal
       isLoading={loading}
@@ -33,7 +39,7 @@ function CreateProgram() {
           title: "",
           desc: "",
           image: [],
-          village_id: localStorage.getItem("village-id") || "",
+          village_id: "",
         }}
         onSubmit={async (values) => {
           setLoading(true);
@@ -54,6 +60,7 @@ function CreateProgram() {
           if (data) {
             mutation.mutate({
               ...values,
+              village_id: items[0]?.village_id,
               image: [
                 {
                   type: "cover",

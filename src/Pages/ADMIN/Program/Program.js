@@ -5,28 +5,37 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useLocation, useNavigate } from "react-router-dom";
 import InfoIcon from "@mui/icons-material/Info";
 import MutationDelete from "../../../Hooks/Mutation/MutationDeleete";
-import useFetch from "../../../Hooks/useFetch";
+import useFetchByTrigger from "../../../Hooks/useFetchByTrigger";
 import FestivalIcon from "@mui/icons-material/Festival";
 import CreateProgram from "./CreateProgram";
 import { FormatDate } from "../../../Component/FormatDate";
 import TransitionsModal from "../../../Component/TransitionsModal";
+import supabase from "../../../Hooks/supabase";
 
 function Program() {
   const [id, setId] = React.useState(null);
+  const [data, setData] = React.useState(false);
   const { mutation, isLoading } = MutationDelete({
     module: "PROGRAMS",
     errorMessage: "gagal menghapus program",
     successMessage: "berhasil menghapus program",
   });
   const location = useLocation();
-  const { items } = useFetch({ module: "PROGRAMS" });
-  // const { items: data } = useFetch({
-  //   module: "USER_DEVELOPMENT",
-  //   select: `*, vilage:village_id(*)`,
-  // });
-  // console.log(data, "ini");
+  const { items, isLoading: loadingFetch } = useFetchByTrigger({
+    module: "PROGRAMS",
+    filterBy: "village_id",
+    value: "b74f1d79-766b-4846-ace0-610f43382fe2",
+    enabled: Boolean(data),
+  });
+  const getData = async () => {
+    const { data: USER, error } = await supabase
+      .from("USER_DEVELOPMENT")
+      .select("*");
+    if (!error) {
+      setData(USER[0]?.village_id);
+    }
+  };
   const navigate = useNavigate();
-
   const handleDelete = (i, e) => {
     setId(i);
     if (e === "delete") {
@@ -35,6 +44,9 @@ function Program() {
       navigate(`?${i}`);
     }
   };
+  React.useEffect(() => {
+    getData();
+  }, []);
   return (
     <Box>
       <TransitionsModal
