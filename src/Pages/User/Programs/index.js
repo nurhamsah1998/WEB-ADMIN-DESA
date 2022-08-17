@@ -2,11 +2,12 @@ import React from "react";
 import { Box, Button, Typography, Grid } from "@mui/material";
 import UserScreenLayout from "../../../Layout/UserScreenLayout";
 import Text from "../../../Component/Text";
-import { maxHeight } from "@mui/system";
+import useFetch from "../../../Hooks/useFetch";
 
 function UserProgram() {
   const innerWidth = window.innerWidth - 36;
-
+  const { items } = useFetch({ module: "PROGRAMS", enable: true });
+  console.log(items);
   const data = [
     {
       title: "Program masker gratis",
@@ -67,7 +68,12 @@ function UserProgram() {
   ];
   return (
     <UserScreenLayout>
-      <Box maxWidth="lg" margin="auto" marginTop={4} padding={{ xs: 2, sm: 10, md: 10, lg: 10 }}>
+      <Box
+        maxWidth="lg"
+        margin="auto"
+        marginTop={4}
+        padding={{ xs: 2, sm: 10, md: 10, lg: 10 }}
+      >
         <Text title large textAlign="center" marginBottom={{ xs: 3, sm: 10 }}>
           Program
         </Text>
@@ -92,7 +98,11 @@ function UserProgram() {
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={8}>
-                  <Box display="flex" justifyContent="space-between" marginY={{ xs: 2, sm: 0 }}>
+                  <Box
+                    display="flex"
+                    justifyContent="space-between"
+                    marginY={{ xs: 2, sm: 0 }}
+                  >
                     <Box>
                       <Text title fontWeight="600">
                         {item.title}
@@ -102,11 +112,20 @@ function UserProgram() {
                       </Text>
                     </Box>
                     <Box sx={{ display: "flex", gap: { xs: 1, sm: 2, lg: 2 } }}>
-                      <Button sx={{ color: "#fff", fontSize: "9px", maxHeight: 28 }} size="small" variant="contained">
+                      <Button
+                        sx={{ color: "#fff", fontSize: "9px", maxHeight: 28 }}
+                        size="small"
+                        variant="contained"
+                      >
                         Detail
                       </Button>
                       <Button
-                        sx={{ backgroundColor: "#1BC5BD", color: "#fff", fontSize: "9px", maxHeight: 28 }}
+                        sx={{
+                          backgroundColor: "#1BC5BD",
+                          color: "#fff",
+                          fontSize: "9px",
+                          maxHeight: 28,
+                        }}
                         size="small"
                         variant="contained"
                       >

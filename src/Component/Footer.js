@@ -35,17 +35,23 @@ function Footer() {
   return (
     <Box
       sx={{
-        background: "linear-gradient(to right, rgba(27, 197, 189, 0.5), rgba(60, 221, 213, 0.5))",
+        background:
+          "linear-gradient(to right, rgba(27, 197, 189, 0.5), rgba(60, 221, 213, 0.5))",
         display: "grid",
         alignItems: "end",
         backgroundSize: "cover",
       }}
     >
-      <Box marginX="auto" maxWidth="lg" padding={{ xs: 2, sm: 10, md: 10, lg: 10 }}>
+      <Box
+        marginX="auto"
+        maxWidth="lg"
+        padding={{ xs: 2, sm: 10, md: 10, lg: 10 }}
+      >
         <Box>
           {menu.map((item, index) => {
             return (
               <Link
+                key={index}
                 onClick={() => navigate(item.path)}
                 underline="none"
                 color={location.pathname === item.path ? "#ffc800" : "white"}
@@ -66,7 +72,12 @@ function Footer() {
           marginTop={4}
           paddingTop={2}
           alignItems="center"
-          sx={{ borderTop: 0.5, borderColor: "white", display: "flex", justifyContent: "space-between" }}
+          sx={{
+            borderTop: 0.5,
+            borderColor: "white",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
         >
           <Text paragraf color="white">
             <span>&#169;</span> Copyright-2022

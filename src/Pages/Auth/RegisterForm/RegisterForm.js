@@ -31,6 +31,7 @@ function RegisterForm() {
   React.useEffect(() => {
     getData();
   }, []);
+
   return (
     <Box sx={{ width: "100%", mt: 20 }}>
       <Box
@@ -80,92 +81,93 @@ function RegisterForm() {
               village_id: "",
             }}
             onSubmit={async (values) => {
-              // setLoading(true);
-              // if (
-              //   values.email?.length <= 0 ||
-              //   values.name?.length <= 0 ||
-              //   values.nik?.length <= 0 ||
-              //   values.password?.length <= 0
-              // ) {
-              //   setNotif((e) => ({
-              //     ...e,
-              //     v: true,
-              //     message: "semua form wajib diisi",
-              //     variant: "error",
-              //   }));
-              //   setLoading(false);
-              //   return;
-              // }
-              // const { user, error } = await supabase.auth.signUp({
-              //   ...values,
-              // });
-              // const passwordError = error?.message?.includes("characters");
-              // const emailError = error?.message?.includes("email");
-              // const emailExist = error?.message?.includes("already ");
-              // if (passwordError) {
-              //   setNotif((e) => ({
-              //     ...e,
-              //     v: true,
-              //     message: "minimal password 8 karakter",
-              //     variant: "error",
-              //   }));
-              //   setLoading(false);
-              //   return;
-              // } else if (emailError) {
-              //   setNotif((e) => ({
-              //     ...e,
-              //     v: true,
-              //     message: "masukkan email yang valid",
-              //     variant: "error",
-              //   }));
-              //   setLoading(false);
-              //   return;
-              // } else if (emailExist) {
-              //   setNotif((e) => ({
-              //     ...e,
-              //     v: true,
-              //     message:
-              //       "sepertinya email sudah terdaftar. coba masukkan emal lain.",
-              //     variant: "error",
-              //   }));
-              //   setLoading(false);
-              //   return;
-              // }
-              // if (user) {
-              //   setLoading(true);
-              //   setTimeout(async () => {
-              //     const USER_ID = supabase?.auth.user();
-              //     console.log(USER_ID?.id);
-              //     const { data, error } = await supabase
-              //       .from("USER_DEVELOPMENT")
-              //       .insert([
-              //         {
-              //           user_id: USER_ID?.id,
-              //           name: values?.name,
-              //           is_admin: false,
-              //         },
-              //       ]);
-              //     setLoading(false);
-              //     if (error) {
-              //       setLoading(false);
-              //       console.log(error?.message);
-              //     } else {
-              //       setLoading(true);
-              //       setNotif((e) => ({
-              //         ...e,
-              //         v: true,
-              //         message:
-              //           "alkhamdulillah register berhasil brader. mohon ditunggu. . .",
-              //         variant: "success",
-              //       }));
-              //       setTimeout(() => {
-              //         setLoading(false);
-              //         navigate("/auth/login");
-              //       }, 4000);
-              //     }
-              //   }, 1000);
-              // }
-              // setLoading(false);\
+              setLoading(true);
+              if (
+                values.email?.length <= 0 ||
+                values.name?.length <= 0 ||
+                values.nik?.length <= 0 ||
+                values.password?.length <= 0
+              ) {
+                setNotif((e) => ({
+                  ...e,
+                  v: true,
+                  message: "semua form wajib diisi",
+                  variant: "error",
+                }));
+                setLoading(false);
+                return;
+              }
+              const { user, error } = await supabase.auth.signUp({
+                ...values,
+              });
+              const passwordError = error?.message?.includes("characters");
+              const emailError = error?.message?.includes("email");
+              const emailExist = error?.message?.includes("already ");
+              if (passwordError) {
+                setNotif((e) => ({
+                  ...e,
+                  v: true,
+                  message: "minimal password 8 karakter",
+                  variant: "error",
+                }));
+                setLoading(false);
+                return;
+              } else if (emailError) {
+                setNotif((e) => ({
+                  ...e,
+                  v: true,
+                  message: "masukkan email yang valid",
+                  variant: "error",
+                }));
+                setLoading(false);
+                return;
+              } else if (emailExist) {
+                setNotif((e) => ({
+                  ...e,
+                  v: true,
+                  message:
+                    "sepertinya email sudah terdaftar. coba masukkan emal lain.",
+                  variant: "error",
+                }));
+                setLoading(false);
+                return;
+              }
+              if (user) {
+                setLoading(true);
+                setTimeout(async () => {
+                  const USER_ID = supabase?.auth.user();
+                  console.log(USER_ID?.id);
+                  const { data, error } = await supabase
+                    .from("USER_DEVELOPMENT")
+                    .insert([
+                      {
+                        user_id: USER_ID?.id,
+                        name: values?.name,
+                        is_admin: false,
+                        village_id: values?.village_id,
+                      },
+                    ]);
+                  setLoading(false);
+                  if (error) {
+                    setLoading(false);
+                    console.log(error?.message);
+                  } else {
+                    setLoading(true);
+                    setNotif((e) => ({
+                      ...e,
+                      v: true,
+                      message:
+                        "alkhamdulillah register berhasil brader. mohon ditunggu. . .",
+                      variant: "success",
+                    }));
+                    setTimeout(() => {
+                      setLoading(false);
+                      navigate("/auth/login");
+                    }, 4000);
+                  }
+                }, 1000);
+              }
+              setLoading(false);
               console.log(values);
             }}
           >
@@ -204,14 +206,14 @@ function RegisterForm() {
                     if (item.isAutoComplete) {
                       return (
                         <Autocomplete
+                          key={index}
                           disablePortal
-                          getOptionLabel={dataFetch?.map(
-                            (item) => item?.address[0]?.name
-                          )}
-                          options={dataFetch || null}
-                          sx={{ width: 300 }}
+                          getOptionLabel={(dataFetch) => dataFetch?.ds || ""}
+                          options={dataFetch || []}
+                          fullWidth
+                          sx={{ mt: 3 }}
                           onChange={(e, i) => {
-                            console.log(i);
+                            setFieldValue("village_id", i?.id);
                           }}
                           renderInput={(params) => (
                             <TextField {...params} label="pilih desa" />
