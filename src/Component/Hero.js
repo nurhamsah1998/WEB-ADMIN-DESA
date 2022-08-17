@@ -2,7 +2,6 @@ import React from "react";
 import { menu } from "../utils";
 import { Box, Button, Grid, Link, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import MenuIcon from "@mui/icons-material/Menu";
 import LeftDrawer from "./Drawer/LeftDrawer";
 import Text from "./Text";
 import "../App.css";
@@ -58,14 +57,23 @@ function Hero() {
         </Box>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
-            <Typography fontSize={{ xs: 20, sm: 40 }} fontWeight="700" color="white">
+            <Typography
+              fontSize={{ xs: 20, sm: 40 }}
+              fontWeight="700"
+              color="white"
+            >
               Desa Bajulan,kecamatan Rembang
             </Typography>
             <Text paragraf sx={{ marginTop: { xs: 2, sm: 4 } }}>
-              Trabalhamos com as tecnologias mais atuais e oferecemos as melhores soluções para o seu negócio.
+              Trabalhamos com as tecnologias mais atuais e oferecemos as
+              melhores soluções para o seu negócio.
             </Text>
 
-            <Button variant="contained" size="small" sx={{ marginTop: { xs: 2, sm: 4 } }}>
+            <Button
+              variant="contained"
+              size="small"
+              sx={{ marginTop: { xs: 2, sm: 4 } }}
+            >
               Blog
             </Button>
           </Grid>
