@@ -89,11 +89,13 @@ function LoginForm() {
                   .select("*")
                   .eq("user_id", user?.id);
                 if (data[0]?.is_admin) {
+                  localStorage.setItem("user-web-desa", JSON.stringify(data));
                   localStorage.setItem("is-admin", data[0]?.is_admin);
                   localStorage.setItem("village-id", data[0]?.village_id);
 
                   navigate("/");
                 } else {
+                  localStorage.setItem("user-web-desa", JSON.stringify(data));
                   localStorage.setItem("is-admin", data[0]?.is_admin);
                   localStorage.setItem("village-id", data[0]?.village_id);
                   navigate("/web-desa/user/home");
