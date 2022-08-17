@@ -37,7 +37,12 @@ function Events() {
   const innerWidth = window.innerWidth - 36;
 
   return (
-    <Box maxWidth="lg" margin="auto" marginTop={4} padding={{ xs: 2, sm: 10, md: 10, lg: 10 }}>
+    <Box
+      maxWidth="lg"
+      margin="auto"
+      marginTop={4}
+      padding={{ xs: 2, sm: 10, md: 10, lg: 10 }}
+    >
       <Text title large textAlign="center" marginBottom={{ xs: 3, sm: 10 }}>
         Program dan Acara
       </Text>

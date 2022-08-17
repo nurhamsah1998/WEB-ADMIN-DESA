@@ -2,12 +2,9 @@ import React from "react";
 import { Box, Button, Typography, Grid } from "@mui/material";
 import UserScreenLayout from "../../../Layout/UserScreenLayout";
 import Text from "../../../Component/Text";
-import useFetch from "../../../Hooks/useFetch";
 
 function UserProgram() {
   const innerWidth = window.innerWidth - 36;
-  const { items } = useFetch({ module: "PROGRAMS", enable: true });
-  console.log(items);
   const data = [
     {
       title: "Program masker gratis",
