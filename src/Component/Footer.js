@@ -36,7 +36,7 @@ function Footer() {
     <Box
       sx={{
         background:
-          "linear-gradient(to right, rgba(27, 197, 189, 0.5), rgba(60, 221, 213, 0.5))",
+          "linear-gradient(45deg, rgba(8,70,67,1) 0%, rgba(60,221,213,1) 0%, rgba(27,197,189,1) 100%)",
         display: "grid",
         alignItems: "end",
         backgroundSize: "cover",
@@ -54,7 +54,7 @@ function Footer() {
                 key={index}
                 onClick={() => navigate(item.path)}
                 underline="none"
-                color={location.pathname === item.path ? "#ffc800" : "white"}
+                color="white"
                 fontWeight="600"
                 fontSize={{ xs: 9, sm: 14, md: 18 }}
                 sx={{ cursor: "pointer", marginX: 2 }}

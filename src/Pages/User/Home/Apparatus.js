@@ -7,6 +7,8 @@ import Text from "../../../Component/Text";
 import Slider from "react-slick";
 
 export default function Apparatus() {
+  const innerWidth = window.innerWidth - 36;
+
   const settings = {
     dots: true,
     infinite: true,
@@ -41,26 +43,50 @@ export default function Apparatus() {
     },
   ];
   return (
-    <Box maxWidth="lg" margin="auto" padding={{ xs: 2, sm: 10, md: 10, lg: 10 }} marginBottom={6}>
+    <Box
+      maxWidth="lg"
+      margin="auto"
+      padding={{ xs: 2, sm: 10, md: 10, lg: 10 }}
+      marginBottom={6}
+    >
       <Text title large textAlign="center" marginBottom={{ xs: 3, sm: 10 }}>
         Aparat Desa
       </Text>
       <Slider {...settings}></Slider>
-      <Box display={{ xs: "grid", sm: "grid", md: "flex", lg: "flex" }} gap={4} style={{ overflowX: "auto" }}>
+      <Box
+        display={{ xs: "grid", sm: "grid", md: "flex", lg: "flex" }}
+        gap={4}
+        style={{ overflowX: "auto" }}
+      >
         {data?.map((item, index) => {
           return (
-            <Card key={index} sx={{ maxWidth: 345, minWidth: 300, backgroundColor: "#F6F6F6" }}>
+            <Card
+              key={index}
+              sx={{
+                maxWidth: { xs: innerWidth, sm: 345 },
+                minWidth: 300,
+                backgroundColor: "#F6F6F6",
+              }}
+            >
               <CardContent sx={{ display: "flex", justifyContent: "center" }}>
                 <Avatar src={item.image} sx={{ width: 80, height: 80 }} />
               </CardContent>
               <CardContent>
-                <Link underline="none" onClick={() => alert("Bapa Mana?")} sx={{ cursor: "pointer" }}>
+                <Link
+                  underline="none"
+                  onClick={() => alert("Bapa Mana?")}
+                  sx={{ cursor: "pointer" }}
+                >
                   <Text subTitle textAlign="center" color="#00385F">
                     {`${item.name} - ${item.position}`}
                   </Text>
                 </Link>
 
-                <Typography variant="body2" color="text.secondary" marginTop={2}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  marginTop={2}
+                >
                   {item.description}
                 </Typography>
               </CardContent>
