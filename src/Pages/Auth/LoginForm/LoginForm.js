@@ -24,7 +24,7 @@ function LoginForm() {
   const [loading, setLoading] = React.useState(false);
 
   return (
-    <Box sx={{ width: "100%", mt: 20 }}>
+    <Box sx={{ width: "100%" }}>
       <Box
         sx={{
           width: { xs: "90%", sm: "50%", lg: "70%", xl: "70%" },

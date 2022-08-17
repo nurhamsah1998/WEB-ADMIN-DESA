@@ -5,7 +5,12 @@ import RegisterForm from "./RegisterForm/RegisterForm";
 export default function Register() {
   return (
     <Box sx={{ width: "100%" }}>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         <Box
           sx={{
             bgcolor: "#1BC5BD",
@@ -14,23 +19,25 @@ export default function Register() {
             display: { xs: "none", sm: "none", lg: "block", xl: "block" },
           }}
         >
-          <Box sx={{ position: "relative" }}>
+          <Box sx={{ height: "100vh" }}>
             <Box
               sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, 30%)",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
               }}
             >
-              <Typography variant="h4" fontWeight={700} color={"#fff"}>
-                Website Resmi Desa Bajulan
-              </Typography>
-              <Typography variant="h6" mb={10} color={"#fff"}>
-                menuju visi misi bersama.
-              </Typography>
-              <Box sx={{ mt: 5, transform: "scale(1.2)" }}>
-                <img src="/Auth/rafiki.svg" />
+              <Box>
+                <Typography variant="h4" fontWeight={700} color={"#fff"}>
+                  Website Resmi Desa Bajulan
+                </Typography>
+                <Typography variant="h6" color={"#fff"}>
+                  menuju visi misi bersama.
+                </Typography>
+                <Box>
+                  <img maxWidth="100%" src="/Auth/rafiki.svg" />
+                </Box>
               </Box>
             </Box>
           </Box>
@@ -38,6 +45,10 @@ export default function Register() {
         <Box
           sx={{
             bgcolor: "#fff",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
             width: { xs: "100%", sm: "100%", lg: "80%", xl: "80%" },
           }}
         >

@@ -33,7 +33,7 @@ function RegisterForm() {
   }, []);
 
   return (
-    <Box sx={{ width: "100%", mt: 20 }}>
+    <Box sx={{ width: "100%" }}>
       <Box
         sx={{
           width: { xs: "90%", sm: "50%", lg: "70%", xl: "70%" },
@@ -60,15 +60,7 @@ function RegisterForm() {
             <span style={{ color: grey[800] }}>DESA</span>
           </Typography>
         </Box>
-        <Typography
-          mt={"74px"}
-          variant="h4"
-          textAlign={"center"}
-          fontWeight={700}
-        >
-          Selamat Datang
-        </Typography>
-        <Box mt={10}>
+        <Box>
           <Typography variant="h6" fontWeight={400}>
             Daftarkan akun anda
           </Typography>
@@ -233,7 +225,7 @@ function RegisterForm() {
                       </Box>
                     );
                   })}
-                  <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
                     <Checkbox />
                     <Typography fontSize={14}>
                       Dengan menyetujui syarat , ketentuan dan kebijakan yang
