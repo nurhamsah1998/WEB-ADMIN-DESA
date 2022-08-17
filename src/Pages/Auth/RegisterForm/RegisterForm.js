@@ -239,7 +239,7 @@ function RegisterForm() {
                     sx={{ mt: 3 }}
                     variant="contained"
                     type="submit"
-                    title="Masuk"
+                    title="Daftar"
                   />
                   <Box mt={3}>
                     <Typography textAlign="center">

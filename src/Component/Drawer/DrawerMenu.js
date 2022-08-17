@@ -17,7 +17,7 @@ import Toolbar from "@mui/material/Toolbar";
 import SearchIcon from "@mui/icons-material/Search";
 import { useLocation } from "react-router-dom";
 import Typography from "@mui/material/Typography";
-import { green, grey, red } from "@mui/material/colors";
+import { blue, green, grey, red } from "@mui/material/colors";
 import PersonIcon from "@mui/icons-material/Person";
 import { NavigationMenu } from "./MenuNavigation";
 import { Button, TextField } from "@mui/material";
@@ -117,7 +117,7 @@ function DrawerMenu({ children, vicibility = true }) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{ color: green[500], mr: 2, display: { sm: "none" } }}
           >
             <MenuIcon />
           </IconButton>
@@ -129,7 +129,15 @@ function DrawerMenu({ children, vicibility = true }) {
               width: "100%",
             }}
           >
-            <Typography variant="h6" fontWeight={600} noWrap component="div">
+            <Typography
+              variant="h6"
+              sx={{
+                display: { xs: "none", md: "block", lg: "block", xl: "block" },
+              }}
+              fontWeight={600}
+              noWrap
+              component="div"
+            >
               <span style={{ display: "flex", alignItems: "center" }}>
                 <span>
                   <span style={{ color: green[500] }}>Web</span>
@@ -144,6 +152,22 @@ function DrawerMenu({ children, vicibility = true }) {
                   }}
                 >
                   Membangun Negri Demi Sesuap Nasi
+                </span>
+              </span>
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{
+                display: { xs: "block", md: "none", lg: "none", xl: "none" },
+              }}
+              fontWeight={600}
+              noWrap
+              component="div"
+            >
+              <span style={{ display: "flex" }}>
+                <span>
+                  <span style={{ color: green[500] }}>Web</span>
+                  <span style={{ color: grey[800] }}>DESA</span>
                 </span>
               </span>
             </Typography>
