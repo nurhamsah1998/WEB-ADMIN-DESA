@@ -158,9 +158,9 @@ function Hero() {
                 <Avatar sx={{ width: 36, height: 36 }} />
               </IconButton>
             </Tooltip>
-            <Text paragraf color="white">
+            <Typography fontSize={{ xs: 8, sm: 14 }} color="white">
               {capitalFirstLetter(user[0]?.name)}
-            </Text>
+            </Typography>
           </Box>
           <Menus />
         </Box>
