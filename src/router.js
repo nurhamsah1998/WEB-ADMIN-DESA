@@ -8,9 +8,9 @@ import Program from "./Pages/ADMIN/Program/Program";
 import { Account } from "./Pages/ADMIN/Account/Account";
 import { More } from "./Pages/ADMIN/More/More";
 import { Document } from "./Pages/ADMIN/Document/Document";
-import Home from "./Pages/USER/Home";
+import Home from "./Pages/User/Home/index";
 import Complain from "./Pages/ADMIN/Complain/Complain";
-import UserProgram from "./Pages/USER/Programs";
+import UserProgram from "./Pages/User/Programs/index";
 
 function Router({ admin }) {
   return useRoutes(
