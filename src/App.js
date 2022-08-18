@@ -7,11 +7,10 @@ import { useLocation } from "react-router-dom";
 import Router from "./router";
 import { Notif } from "./Hooks/useContextNotification";
 import Notification from "./Component/Notification";
-import SecureLS from "secure-ls";
+import { getStorage } from "./utils";
 
 function App() {
-  const ls = new SecureLS();
-  const user = ls.get("status");
+  const user = getStorage("status");
 
   const location = useLocation();
   const theme = createTheme({
