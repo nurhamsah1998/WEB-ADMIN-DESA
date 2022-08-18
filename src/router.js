@@ -8,9 +8,11 @@ import Program from "./Pages/ADMIN/Program/Program";
 import { Account } from "./Pages/ADMIN/Account/Account";
 import { More } from "./Pages/ADMIN/More/More";
 import { Document } from "./Pages/ADMIN/Document/Document";
-import Home from "./Pages/User/Home/index";
+import Home from "./Pages/User/Home/Home";
 import Complain from "./Pages/ADMIN/Complain/Complain";
-import UserProgram from "./Pages/USER/Programs";
+import UserProgram from "./Pages/User/Programs/UserProgram";
+import Verified from "./Pages/Auth/Status/Verified";
+import Denied from "./Pages/Auth/Status/Denied";
 
 function Router({ admin }) {
   return useRoutes(
@@ -80,8 +82,12 @@ function Router({ admin }) {
             element: <UserProgram />,
           },
           {
-            path: "/web-desa/user/test",
+            path: "/web-desa/user/awaiting",
             element: <Verified />,
+          },
+          {
+            path: "/web-desa/user/denied",
+            element: <Denied />,
           },
         ]
   );

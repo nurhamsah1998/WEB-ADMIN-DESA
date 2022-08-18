@@ -7,8 +7,12 @@ import { useLocation } from "react-router-dom";
 import Router from "./router";
 import { Notif } from "./Hooks/useContextNotification";
 import Notification from "./Component/Notification";
+import SecureLS from "secure-ls";
 
 function App() {
+  const ls = new SecureLS();
+  const user = ls.get("status");
+
   const location = useLocation();
   const theme = createTheme({
     palette: {
@@ -66,7 +70,14 @@ function App() {
   useEffect(() => {
     const getToken = localStorage.getItem("supabase.auth.token");
     if (getToken) {
-      console.log("ayoyoo");
+      const status = user[0]?.is_verified;
+      if (status === "awaiting") {
+        navigate("/web-desa/user/awaiting");
+      } else if (status === "denied") {
+        navigate("/web-desa/user/denied");
+      } else {
+        console.log("success");
+      }
     }
     if (!getToken) {
       navigate("/auth/login");
@@ -83,11 +94,7 @@ function App() {
         ) : (
           <Router admin={false} />
         )}
-        <Notification
-          message={notif.message}
-          variant={notif.variant}
-          v={notif.v}
-        />
+        <Notification message={notif.message} variant={notif.variant} v={notif.v} />
       </Notif.Provider>
     </ThemeProvider>
   );

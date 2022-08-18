@@ -38,10 +38,7 @@ function Verified() {
             <Typography variant="h6" mb={3} color="#fff">
               lorem ipsum dalam penngecekan lorem ipsum dalam penngecekan
             </Typography>
-            <LinearProgress
-              sx={{ height: 15, borderRadius: "12px" }}
-              color="warning"
-            />
+            <LinearProgress sx={{ height: 15, borderRadius: "12px" }} color="warning" />
           </Box>
         </Box>
       </Box>

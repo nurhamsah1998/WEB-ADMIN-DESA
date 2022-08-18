@@ -29,6 +29,10 @@ export default function Appbar() {
   const dataStorage = localStorage.getItem("user-web-desa");
   const user = JSON.parse(dataStorage);
 
+  const name = user?.map((v) => {
+    return v.name;
+  });
+
   //function
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -141,7 +145,8 @@ export default function Appbar() {
             >
               <MenuItem>
                 <Avatar />
-                <Typography>{capitalFirstLetter(user[0]?.name)}</Typography>
+                <Typography>user</Typography>
+                {/* {capitalFirstLetter(name || "user")} */}
               </MenuItem>
               <Divider />
               <MenuItem>

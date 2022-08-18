@@ -9,12 +9,15 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import supabase from "../../../Hooks/supabase";
 import LoadingButton from "../../../Component/LoadingButton";
 import { Notif } from "../../../Hooks/useContextNotification";
+import SecureLS from "secure-ls";
+import { saveStorage } from "../../../utils";
 
 function LoginForm() {
   const { setNotif } = useContext(Notif);
   const navigate = useNavigate();
   const [show, setShow] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const ls = new SecureLS();
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -44,12 +47,7 @@ function LoginForm() {
             <span style={{ color: grey[800] }}>DESA</span>
           </Typography>
         </Box>
-        <Typography
-          mt={"74px"}
-          variant="h4"
-          textAlign={"center"}
-          fontWeight={700}
-        >
+        <Typography mt={"74px"} variant="h4" textAlign={"center"} fontWeight={700}>
           Selamat Datang
         </Typography>
         <Box mt={10}>
@@ -77,22 +75,20 @@ function LoginForm() {
                 ...values,
               });
               if (!error) {
-                const { data } = await supabase
-                  .from("USER_DEVELOPMENT")
-                  .select("*")
-                  .eq("user_id", user?.id);
+                const { data } = await supabase.from("USER_DEVELOPMENT").select("*").eq("user_id", user?.id);
                 if (data[0]?.is_verified === "awaiting") {
-                  navigate("/web-desa/user/test");
+                  saveStorage("status", data);
+                  navigate("/web-desa/user/awaiting");
                 }
                 if (data[0]?.is_verified === "denied") {
-                  navigate("/web-desa/user/test");
+                  saveStorage("status", data);
+                  navigate("/web-desa/user/denied");
                 }
                 if (data[0]?.is_verified === "accepted") {
                   if (data[0]?.is_admin) {
                     localStorage.setItem("user-web-desa", JSON.stringify(data));
                     localStorage.setItem("is-admin", data[0]?.is_admin);
                     localStorage.setItem("village-id", data[0]?.village_id);
-
                     navigate("/");
                   } else {
                     localStorage.setItem("user-web-desa", JSON.stringify(data));
