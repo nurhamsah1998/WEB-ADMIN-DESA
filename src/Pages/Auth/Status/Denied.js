@@ -1,9 +1,16 @@
 import React from "react";
+import { Box, Typography, LinearProgress, Button } from "@mui/material";
+import GppMaybeIcon from "@mui/icons-material/GppMaybe";
 import { Box, Typography, LinearProgress } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import { red } from "@mui/material/colors";
 
 function Denied() {
+  const handleBack = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   return (
     <Box
       sx={{
@@ -40,6 +47,9 @@ function Denied() {
               sepertinya beberapa data yang anda masukkan tidak sesuai dengan
               data diserver kami
             </Typography>
+            <Button onClick={handleBack} variant="contained" sx={{ color: "white", bgcolor: "mediumseagreen" }}>
+              Oke
+            </Button>
           </Box>
         </Box>
       </Box>

@@ -8,9 +8,9 @@ import Program from "./Pages/ADMIN/Program/Program";
 import { Account } from "./Pages/ADMIN/Account/Account";
 import { More } from "./Pages/ADMIN/More/More";
 import { Document } from "./Pages/ADMIN/Document/Document";
-import Home from "./Pages/User/Home/index";
+import Home from "./Pages/User/Home/Home";
 import Complain from "./Pages/ADMIN/Complain/Complain";
-import UserProgram from "./Pages/User/Programs/index";
+import UserProgram from "./Pages/User/Programs/UserProgram";
 import Verified from "./Pages/Auth/Status/Verified";
 import Denied from "./Pages/Auth/Status/Denied";
 

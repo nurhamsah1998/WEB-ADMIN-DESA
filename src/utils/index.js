@@ -1,9 +1,5 @@
-import {
-  HomeOutlined,
-  Event,
-  Call,
-  SettingsOutlined,
-} from "@mui/icons-material";
+import { HomeOutlined, Event, Call, SettingsOutlined } from "@mui/icons-material";
+import SecureLS from "secure-ls";
 
 export const menu = [
   {
@@ -28,8 +24,7 @@ export const menu = [
   },
 ];
 
-export const capitalFirstLetter = (str) =>
-  str?.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase());
+export const capitalFirstLetter = (str) => str?.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase());
 
 export const formatDate = (date) => {
   var d = new Date(date),
@@ -41,4 +36,14 @@ export const formatDate = (date) => {
   if (day.length < 2) day = "0" + day;
 
   return [day, month, year].join("-");
+};
+
+export const saveStorage = (key, value) => {
+  const ls = new SecureLS();
+  return ls.set(key, value);
+};
+
+export const getStorage = (key) => {
+  const ls = new SecureLS();
+  return ls.get(key);
 };
