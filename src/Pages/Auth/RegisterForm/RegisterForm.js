@@ -135,6 +135,7 @@ function RegisterForm() {
                       {
                         user_id: USER_ID?.id,
                         name: values?.name,
+                        nik: values?.nik,
                         is_admin: false,
                         village_id: values?.village_id,
                       },
@@ -159,8 +160,6 @@ function RegisterForm() {
                   }
                 }, 1000);
               }
-              setLoading(false);
-              console.log(values);
             }}
           >
             {({ values, getFieldProps, setFieldValue }) => (
