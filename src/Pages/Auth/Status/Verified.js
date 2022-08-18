@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography, LinearProgress } from "@mui/material";
-import LockIcon from "@mui/icons-material/Lock";
+
+import GppMaybeIcon from "@mui/icons-material/GppMaybe";
 
 function Verified() {
   return (
@@ -28,7 +29,7 @@ function Verified() {
               mb: { xs: 14, sm: 14, xl: 0, lg: 0 },
             }}
           >
-            <LockIcon sx={{ scale: "10" }} color="secondary" />
+            <GppMaybeIcon sx={{ scale: "10" }} color="secondary" />
           </Box>
 
           <Box sx={{ width: "100%", mt: 2 }}>
@@ -36,7 +37,7 @@ function Verified() {
               Akun anda dalam tahap pengecekan oleh perangkat desa
             </Typography>
             <Typography variant="h6" mb={3} color="#fff">
-              lorem ipsum dalam penngecekan lorem ipsum dalam penngecekan
+              selalu cek secara berkala. waktu paling lama 2x jam kerja
             </Typography>
             <LinearProgress sx={{ height: 15, borderRadius: "12px" }} color="warning" />
           </Box>
