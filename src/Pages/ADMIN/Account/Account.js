@@ -81,9 +81,6 @@ export const Account = () => {
     delete body.color;
     mutation.mutate(body);
     setBtn({ index: 0, value: "" });
-    if (!isLoading) {
-      navigate(-1);
-    }
   };
   return (
     <Box>
