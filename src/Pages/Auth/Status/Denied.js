@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, LinearProgress, Button } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import { red } from "@mui/material/colors";
 
@@ -42,14 +42,9 @@ function Denied() {
               Mohon maaf akun anda tidak diterima
             </Typography>
             <Typography variant="h6" mb={3} color="#fff">
-              sepertinya beberapa data yang anda masukkan tidak sesuai dengan
-              data diserver kami
+              sepertinya beberapa data yang anda masukkan tidak sesuai dengan data diserver kami
             </Typography>
-            <Button
-              onClick={handleBack}
-              variant="contained"
-              sx={{ color: "white", bgcolor: "mediumseagreen" }}
-            >
+            <Button onClick={handleBack} variant="contained" sx={{ color: "white", bgcolor: "mediumseagreen" }}>
               Oke
             </Button>
           </Box>
