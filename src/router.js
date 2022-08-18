@@ -11,7 +11,8 @@ import { Document } from "./Pages/ADMIN/Document/Document";
 import Home from "./Pages/User/Home/index";
 import Complain from "./Pages/ADMIN/Complain/Complain";
 import UserProgram from "./Pages/User/Programs/index";
-import Verified from "./Pages/Auth/Verified";
+import Verified from "./Pages/Auth/Status/Verified";
+import Denied from "./Pages/Auth/Status/Denied";
 
 function Router({ admin }) {
   return useRoutes(
@@ -81,8 +82,12 @@ function Router({ admin }) {
             element: <UserProgram />,
           },
           {
-            path: "/web-desa/user/test",
+            path: "/web-desa/user/awaiting",
             element: <Verified />,
+          },
+          {
+            path: "/web-desa/user/denied",
+            element: <Denied />,
           },
         ]
   );

@@ -82,10 +82,10 @@ function LoginForm() {
                   .select("*")
                   .eq("user_id", user?.id);
                 if (data[0]?.is_verified === "awaiting") {
-                  navigate("/web-desa/user/test");
+                  navigate("/web-desa/user/awaiting");
                 }
                 if (data[0]?.is_verified === "denied") {
-                  navigate("/web-desa/user/test");
+                  navigate("/web-desa/user/denied");
                 }
                 if (data[0]?.is_verified === "accepted") {
                   if (data[0]?.is_admin) {
