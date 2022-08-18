@@ -1,9 +1,31 @@
 import React from "react";
 import { Box, Typography, LinearProgress } from "@mui/material";
-
+import { useNavigate } from "react-router-dom";
 import GppMaybeIcon from "@mui/icons-material/GppMaybe";
+import { getStorage, saveStorage } from "../../../utils";
+import supabase from "../../../Hooks/supabase";
 
 function Verified() {
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const checkData = async () => {
+      const user = await getStorage("status");
+      const { data } = await supabase.from("USER_DEVELOPMENT").select("*").eq("user_id", user[0]?.user_id);
+      if (data[0]?.is_verified === "accepted") {
+        saveStorage("user-web-desa", data);
+        saveStorage("is-admin", data[0]?.is_admin);
+        saveStorage("village-id", data[0]?.village_id);
+        navigate("/");
+      } else if (data[0]?.is_verified === "denied") {
+        navigate("/web-desa/user/denied");
+      } else {
+        console.log("sabar yaaa");
+      }
+    };
+    checkData();
+  }, []);
+
   return (
     <Box
       sx={{
@@ -31,7 +53,6 @@ function Verified() {
           >
             <GppMaybeIcon sx={{ scale: "10" }} color="secondary" />
           </Box>
-
           <Box sx={{ width: "100%", mt: 2 }}>
             <Typography variant="h4" fontWeight={600} color="#fff">
               Akun anda dalam tahap pengecekan oleh perangkat desa

@@ -58,7 +58,7 @@ function App() {
 
   const navigate = useNavigate();
   const isUser = location.pathname.includes("/web-desa/user");
-  const isAdmin = localStorage.getItem("is-admin");
+  const isAdmin = getStorage("is-admin");
 
   const [notif, setNotif] = React.useState({
     message: "info",

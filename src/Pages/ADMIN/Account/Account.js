@@ -27,7 +27,7 @@ export const Account = () => {
     filter: "village_id",
     filterby: localStorage.getItem("village-id"),
   });
-  const { mutation } = MutationUpdate({
+  const { mutation, isLoading } = MutationUpdate({
     module: "USER_DEVELOPMENT",
     successMessage: `status ${data.name} berhasil diubah`,
     errorMessage: `status ${data.name} gagal diubah`,
@@ -66,12 +66,15 @@ export const Account = () => {
   const handleSubmit = () => {
     const body = { ...data, is_verified: btn.value };
     mutation.mutate(body);
-    navigate(-1);
     setBtn({ index: 0, value: "" });
+    if (!isLoading) {
+      navigate(-1);
+    }
   };
   return (
     <Box>
       <TransitionsModal
+        isLoading={isLoading}
         title="Konfirmasi Akun"
         handleSubmit={handleSubmit}
         handleClose={() => navigate(-1)}

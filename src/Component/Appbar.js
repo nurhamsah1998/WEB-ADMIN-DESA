@@ -1,5 +1,5 @@
 import React from "react";
-import { capitalFirstLetter, menu } from "../utils";
+import { capitalFirstLetter, getStorage, menu } from "../utils";
 import {
   Avatar,
   Box,
@@ -20,18 +20,14 @@ import { Help, HelpOutline, Logout, Notifications, NotificationsNoneOutlined, Se
 
 export default function Appbar() {
   //state & context
+  const [name, setName] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   //variable
   const navigate = useNavigate();
   const location = useLocation();
   const open = Boolean(anchorEl);
-  const dataStorage = localStorage.getItem("user-web-desa");
-  const user = JSON.parse(dataStorage);
-
-  const name = user?.map((v) => {
-    return v.name;
-  });
+  const dataStorage = getStorage("user-web-desa");
 
   //function
   const handleClick = (event) => {
@@ -44,6 +40,13 @@ export default function Appbar() {
     localStorage.clear();
     navigate("/auth/login");
   };
+
+  //any method
+  React.useEffect(() => {
+    dataStorage?.map((v) => {
+      return setName(v?.name);
+    });
+  }, []);
 
   return (
     <AppBar
@@ -145,8 +148,7 @@ export default function Appbar() {
             >
               <MenuItem>
                 <Avatar />
-                <Typography>user</Typography>
-                {/* {capitalFirstLetter(name || "user")} */}
+                <Typography> {capitalFirstLetter(name)}</Typography>
               </MenuItem>
               <Divider />
               <MenuItem>
