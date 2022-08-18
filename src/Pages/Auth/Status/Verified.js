@@ -31,7 +31,6 @@ function Verified() {
           >
             <GppMaybeIcon sx={{ scale: "10" }} color="secondary" />
           </Box>
-
           <Box sx={{ width: "100%", mt: 2 }}>
             <Typography variant="h4" fontWeight={600} color="#fff">
               Akun anda dalam tahap pengecekan oleh perangkat desa
