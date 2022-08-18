@@ -10,7 +10,7 @@ import { More } from "./Pages/ADMIN/More/More";
 import { Document } from "./Pages/ADMIN/Document/Document";
 import Home from "./Pages/User/Home/index";
 import Complain from "./Pages/ADMIN/Complain/Complain";
-import UserProgram from "./Pages/User/Programs/index";
+import UserProgram from "./Pages/USER/Programs";
 
 function Router({ admin }) {
   return useRoutes(
@@ -78,6 +78,10 @@ function Router({ admin }) {
           {
             path: "/web-desa/user/program",
             element: <UserProgram />,
+          },
+          {
+            path: "/web-desa/user/test",
+            element: <Verified />,
           },
         ]
   );
