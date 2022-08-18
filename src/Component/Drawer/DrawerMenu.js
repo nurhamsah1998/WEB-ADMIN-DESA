@@ -32,11 +32,10 @@ function DrawerMenu({ children, vicibility = true }) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const { data, isLoading } = useGetData({
+  const { items, isLoading } = useGetData({
     module: "USER_DEVELOPMENT",
-    enabled: 1,
   });
-  const USER = data?.find((item) => item.user_id === supabase.auth.user()?.id);
+  const USER = items?.find((item) => item.user_id === supabase.auth.user()?.id);
   const drawer = (
     <div>
       <Toolbar>

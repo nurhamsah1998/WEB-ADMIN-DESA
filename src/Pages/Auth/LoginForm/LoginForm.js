@@ -1,12 +1,5 @@
 import React, { useContext } from "react";
-import {
-  Box,
-  Button,
-  Checkbox,
-  Link,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Link, TextField, Typography } from "@mui/material";
 import { grey, green } from "@mui/material/colors";
 import ListItemButton from "@mui/material/ListItemButton";
 import { Formik, Form } from "formik";
@@ -88,17 +81,25 @@ function LoginForm() {
                   .from("USER_DEVELOPMENT")
                   .select("*")
                   .eq("user_id", user?.id);
-                if (data[0]?.is_admin) {
-                  localStorage.setItem("user-web-desa", JSON.stringify(data));
-                  localStorage.setItem("is-admin", data[0]?.is_admin);
-                  localStorage.setItem("village-id", data[0]?.village_id);
+                if (data[0]?.is_verified === "awaiting") {
+                  navigate("/web-desa/user/test");
+                }
+                if (data[0]?.is_verified === "denied") {
+                  navigate("/web-desa/user/test");
+                }
+                if (data[0]?.is_verified === "accepted") {
+                  if (data[0]?.is_admin) {
+                    localStorage.setItem("user-web-desa", JSON.stringify(data));
+                    localStorage.setItem("is-admin", data[0]?.is_admin);
+                    localStorage.setItem("village-id", data[0]?.village_id);
 
-                  navigate("/");
-                } else {
-                  localStorage.setItem("user-web-desa", JSON.stringify(data));
-                  localStorage.setItem("is-admin", data[0]?.is_admin);
-                  localStorage.setItem("village-id", data[0]?.village_id);
-                  navigate("/web-desa/user/home");
+                    navigate("/");
+                  } else {
+                    localStorage.setItem("user-web-desa", JSON.stringify(data));
+                    localStorage.setItem("is-admin", data[0]?.is_admin);
+                    localStorage.setItem("village-id", data[0]?.village_id);
+                    navigate("/web-desa/user/home");
+                  }
                 }
                 setLoading(false);
               }

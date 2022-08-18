@@ -11,7 +11,13 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-function TableComponen({ tableHead, tableBody, isImage, handleClickReply }) {
+function TableComponen({
+  tableHead,
+  tableBody,
+  isImage,
+  handleClickReply,
+  btnLabel = "balas",
+}) {
   return (
     <Box sx={{ bgcolor: "#fff" }}>
       <Table>
@@ -70,7 +76,7 @@ function TableComponen({ tableHead, tableBody, isImage, handleClickReply }) {
                   onClick={() => handleClickReply(body)}
                   variant="contained"
                 >
-                  balas
+                  {btnLabel}
                 </Button>
               </TableCell>
             </TableRow>
