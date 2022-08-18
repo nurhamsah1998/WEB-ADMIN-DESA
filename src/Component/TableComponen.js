@@ -66,6 +66,17 @@ function TableComponen({
                         {body.status}
                       </Typography>
                     </Box>
+                  ) : head.isStatus ? (
+                    <Box
+                      sx={{
+                        bgcolor: body.color,
+                        width: "fit-content",
+                        p: 1,
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <Typography color="#fff">{body[head.id]}</Typography>
+                    </Box>
                   ) : (
                     body[head.id]
                   )}

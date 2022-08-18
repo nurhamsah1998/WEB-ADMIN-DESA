@@ -5,6 +5,7 @@ import useGetBy from "../../../Hooks/useGetBy";
 import MutationUpdate from "../../../Hooks/Mutation/MutationUpdate";
 import TableComponen from "../../../Component/TableComponen";
 import TransitionsModal from "../../../Component/TransitionsModal";
+import { blue, orange, red } from "@mui/material/colors";
 
 export const Account = () => {
   const location = useLocation();
@@ -19,6 +20,7 @@ export const Account = () => {
     {
       id: "is_verified",
       label: "Status",
+      isStatus: true,
     },
   ];
 
@@ -37,25 +39,36 @@ export const Account = () => {
       id: "awaiting",
       label: "Menunggu",
       x: 0,
+      color: orange[500],
     },
     {
       id: "denied",
       label: "Ditolak",
       x: 1,
+      color: red[500],
     },
     {
       id: "accepted",
       label: "Diterima",
       x: 2,
+      color: blue[500],
     },
   ];
   const verify = (prop) => {
     const x = y.find((i) => i.id === prop);
     return x?.label;
   };
+  const verifyColor = (prop) => {
+    const x = y.find((i) => i.id === prop);
+    return x?.color;
+  };
   const dataRebuild = items
     ?.filter((i) => i?.is_admin === false)
-    ?.map((i) => ({ ...i, is_verified: verify(i?.is_verified) }));
+    ?.map((i) => ({
+      ...i,
+      is_verified: verify(i?.is_verified),
+      color: verifyColor(i?.is_verified),
+    }));
 
   const handleClick = (item) => {
     const x = y.find((i) => i.label === item.is_verified);
@@ -65,6 +78,7 @@ export const Account = () => {
   };
   const handleSubmit = () => {
     const body = { ...data, is_verified: btn.value };
+    delete body.color;
     mutation.mutate(body);
     setBtn({ index: 0, value: "" });
     if (!isLoading) {
