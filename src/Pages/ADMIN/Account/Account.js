@@ -132,6 +132,7 @@ export const Account = () => {
           <Loading />
         ) : (
           <TableComponen
+            emptyTag="sepertinya tidak ada penduduk yang mendaftar."
             tableHead={tableHead}
             btnLabel="konfirmasi"
             handleClickReply={handleClick}

@@ -18,24 +18,28 @@ import { useLocation } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import { blue, green, grey, red } from "@mui/material/colors";
 import { NavigationMenu } from "./MenuNavigation";
-import useGetData from "../../Hooks/useGetData";
+import useGetBy from "../../Hooks/useGetBy";
+import { getStorage } from "../../utils";
 
 const drawerWidth = 340;
 
 function DrawerMenu({ children, vicibility = true }) {
+  const idVillage = getStorage("village-id");
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const location = useLocation();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const { items, isLoading } = useGetData({
-    module: "USER_DEVELOPMENT",
+  const { items } = useGetBy({
+    module: "VILLAGE",
+    select: "*",
+    filterby: idVillage,
+    filter: "id",
   });
-  const USER = items?.find((item) => item.user_id === supabase.auth.user()?.id);
   const drawer = (
     <Box sx={{ bgcolor: "#1BC5BD", height: "100vh" }}>
-      <Toolbar sx={{ bgcolor: "#fff", }}>
+      <Toolbar sx={{ bgcolor: "#fff" }}>
         <Box sx={{ display: "flex" }}>
           <Typography fontWeight={600} variant="h5" color={green[500]}>
             Web
@@ -77,7 +81,13 @@ function DrawerMenu({ children, vicibility = true }) {
                   }
                 }}
               >
-                <ListItemIcon sx={{ color: text.path.includes(location.pathname)? text.color :'#fff' }}>
+                <ListItemIcon
+                  sx={{
+                    color: text.path.includes(location.pathname)
+                      ? text.color
+                      : "#fff",
+                  }}
+                >
                   {text.icon}
                 </ListItemIcon>
                 <Box>
@@ -115,11 +125,10 @@ function DrawerMenu({ children, vicibility = true }) {
         position="fixed"
         sx={{
           bgcolor: "#fff",
-          boxShadow: '0px 0px 4px black',
+          boxShadow: "0px 0px 4px black",
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
           display: vicibility ? "block" : "none",
-          
         }}
       >
         <Toolbar>
@@ -136,54 +145,19 @@ function DrawerMenu({ children, vicibility = true }) {
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "flex-end",
               width: "100%",
             }}
           >
-            <Typography
-              variant="h6"
-              sx={{
-                display: { xs: "none", md: "block", lg: "block", xl: "block" },
-              }}
-              fontWeight={600}
-              noWrap
-              component="div"
-            >
-              <span style={{ display: "flex", alignItems: "center" }}>
-                <span>
-                  <span style={{ color: green[500] }}>Web</span>
-                  <span style={{ color: grey[800] }}>DESA</span>
-                  <span style={{ color: grey[800] }}> | </span>
+            <Typography variant="h5" sx={{ color: grey[800] }}>
+              <span>
+                <span style={{ color: green[500], fontWeight: 600 }}>
+                  Desa{" "}
                 </span>
-                <span
-                  style={{
-                    color: grey[800],
-                    fontSize: "15px",
-                    marginLeft: "5px",
-                  }}
-                >
-                  Membangun Negri Demi Sesuap Nasi
+                <span style={{ color: grey[800], textTransform: "capitalize" }}>
+                  {items[0]?.ds || "---"}
                 </span>
               </span>
-            </Typography>
-            <Typography
-              variant="h6"
-              sx={{
-                display: { xs: "block", md: "none", lg: "none", xl: "none" },
-              }}
-              fontWeight={600}
-              noWrap
-              component="div"
-            >
-              <span style={{ display: "flex" }}>
-                <span>
-                  <span style={{ color: green[500] }}>Web</span>
-                  <span style={{ color: grey[800] }}>DESA</span>
-                </span>
-              </span>
-            </Typography>
-            <Typography sx={{ color: grey[800] }}>
-              {USER?.name || "--Not-Set--"}
             </Typography>
           </Box>
         </Toolbar>
@@ -194,7 +168,6 @@ function DrawerMenu({ children, vicibility = true }) {
           width: { sm: drawerWidth },
           flexShrink: { sm: 0 },
           display: vicibility ? "block" : "none",
-          
         }}
         aria-label="mailbox folders"
       >
@@ -210,7 +183,6 @@ function DrawerMenu({ children, vicibility = true }) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-       
             },
           }}
         >
@@ -219,7 +191,6 @@ function DrawerMenu({ children, vicibility = true }) {
         <Drawer
           variant="permanent"
           sx={{
-            
             display: { xs: "none", sm: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
