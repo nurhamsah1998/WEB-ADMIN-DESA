@@ -1,13 +1,20 @@
 import React from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import useGetBy from "../../../Hooks/useGetBy";
 import MutationUpdate from "../../../Hooks/Mutation/MutationUpdate";
 import TableComponen from "../../../Component/TableComponen";
 import TransitionsModal from "../../../Component/TransitionsModal";
 import { getStorage } from "../../../utils";
-import { blue, orange, red } from "@mui/material/colors";
+import { blue, grey, orange, red } from "@mui/material/colors";
 import Loading from "../../../Component/Loading";
+/// stackoverflow
+/// question : https://stackoverflow.com/questions/17493309/how-do-i-change-the-language-of-moment-js
+/// answer by Agu Dondo : https://stackoverflow.com/users/936703/agu-dondo
+import moment from "moment";
+import "moment/locale/id";
+moment.locale("id");
+/// stackoverflow
 
 export const Account = () => {
   const idVillage = getStorage("village-id");
@@ -19,6 +26,11 @@ export const Account = () => {
     {
       id: "name",
       label: "Nama",
+      isImage: true,
+    },
+    {
+      id: "created_at",
+      label: "Tanggal pendaftaran",
     },
     {
       id: "is_verified",
@@ -71,8 +83,9 @@ export const Account = () => {
       ...i,
       is_verified: verify(i?.is_verified),
       color: verifyColor(i?.is_verified),
+      created_at: moment(i?.created_at).format("LLLL"),
     }));
-
+  console.log(dataRebuild);
   const handleClick = (item) => {
     const x = y.find((i) => i.label === item.is_verified);
     setData(item);
@@ -82,11 +95,15 @@ export const Account = () => {
   const handleSubmit = () => {
     const body = { ...data, is_verified: btn.value };
     delete body.color;
+    delete body.created_at;
     mutation.mutate(body);
     setBtn({ index: 0, value: "" });
   };
   return (
     <Box>
+      <Typography mb={3} variant="h6" fontWeight={600} color={grey[700]}>
+        Daftar akun yang masuk{" "}
+      </Typography>
       <TransitionsModal
         isLoading={isLoading}
         title="Konfirmasi Akun"

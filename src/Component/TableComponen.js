@@ -59,13 +59,13 @@ function TableComponen({
                   <TableCell sx={{ border: "none" }} key={index}>
                     {head.isImage ? (
                       <Box sx={{ display: "flex", gap: 2 }}>
-                        <Box>
+                        {/* <Box>
                           <img
                             width="90px"
                             style={{ borderRadius: "12px" }}
                             src={body.image}
                           />
-                        </Box>
+                        </Box> */}
                         <Box>
                           <Typography
                             textTransform="capitalize"
@@ -93,7 +93,7 @@ function TableComponen({
                           bgcolor: body.color,
                           width: "fit-content",
                           p: 1,
-                          borderRadius: "8px",
+                          borderRadius: "5px",
                         }}
                       >
                         <Typography color="#fff">{body[head.id]}</Typography>

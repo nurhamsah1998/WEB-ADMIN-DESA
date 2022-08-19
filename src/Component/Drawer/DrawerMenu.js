@@ -16,6 +16,7 @@ import supabase from "../../Hooks/supabase";
 import Toolbar from "@mui/material/Toolbar";
 import { useLocation } from "react-router-dom";
 import Typography from "@mui/material/Typography";
+import { CircularProgress } from "@mui/material";
 import { blue, green, grey, red } from "@mui/material/colors";
 import { NavigationMenu } from "./MenuNavigation";
 import useGetBy from "../../Hooks/useGetBy";
@@ -150,12 +151,16 @@ function DrawerMenu({ children, vicibility = true }) {
             }}
           >
             <Typography variant="h5" sx={{ color: grey[800] }}>
-              <span>
-                <span style={{ color: green[500], fontWeight: 600 }}>
-                  Desa{" "}
-                </span>
-                <span style={{ color: grey[800], textTransform: "capitalize" }}>
-                  {items[0]?.ds || "---"}
+              <span style={{ display: "flex", alignItems: "center" }}>
+                <span style={{ color: green[500], fontWeight: 600 }}>Desa</span>
+                <span
+                  style={{
+                    color: grey[800],
+                    textTransform: "capitalize",
+                    marginLeft: "10px",
+                  }}
+                >
+                  {items[0]?.ds || <CircularProgress size={25} />}
                 </span>
               </span>
             </Typography>
