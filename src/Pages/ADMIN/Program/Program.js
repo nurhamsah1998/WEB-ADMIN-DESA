@@ -11,8 +11,11 @@ import CreateProgram from "./CreateProgram";
 import { FormatDate } from "../../../Component/FormatDate";
 import TransitionsModal from "../../../Component/TransitionsModal";
 import supabase from "../../../Hooks/supabase";
+import { getStorage } from "../../../utils";
+import Loading from "../../../Component/Loading";
 
 function Program() {
+  const idVillage = getStorage("village-id");
   const [id, setId] = React.useState(null);
   const [data, setData] = React.useState(false);
   const { mutation, isLoading } = MutationDelete({
@@ -24,13 +27,14 @@ function Program() {
   const { items, isLoading: loadingFetch } = useFetchByTrigger({
     module: "PROGRAMS",
     filterBy: "village_id",
-    value: "b74f1d79-766b-4846-ace0-610f43382fe2",
+    value: idVillage,
     enabled: Boolean(data),
   });
   const getData = async () => {
     const { data: USER, error } = await supabase
       .from("USER_DEVELOPMENT")
-      .select("*");
+      .select("*")
+      .eq("village_id", idVillage);
     if (!error) {
       setData(USER[0]?.village_id);
     }
@@ -47,6 +51,7 @@ function Program() {
   React.useEffect(() => {
     getData();
   }, []);
+
   return (
     <Box>
       <TransitionsModal
@@ -61,6 +66,7 @@ function Program() {
       </TransitionsModal>
       <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 5 }}>
         <Button
+          disabled={loadingFetch}
           startIcon={<FestivalIcon />}
           onClick={() => navigate("?create-program=true")}
           variant="contained"
@@ -69,73 +75,77 @@ function Program() {
         </Button>
       </Box>
       <Box>
-        {items?.map((item, index) => (
-          <Box
-            key={index}
-            sx={{
-              mt: 2,
-              display: "flex",
-              bgcolor: "#fff",
-              p: 2,
-              justifyContent: "flex-start",
-              borderRadius: "15px",
-              width: "100%",
-              minHeight: "150px",
-            }}
-          >
-            <Box sx={{ maxWidth: "100%", borderRadius: "5px" }}>
-              <img
-                style={{ borderRadius: "15px", width: "350px" }}
-                src={item.image[0]?.link}
-              />
-            </Box>
-            <Box ml={5} width="100%">
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "flex-start",
-                }}
-              >
+        {loadingFetch ? (
+          <Loading />
+        ) : (
+          items?.map((item, index) => (
+            <Box
+              key={index}
+              sx={{
+                mt: 2,
+                display: "flex",
+                bgcolor: "#fff",
+                p: 2,
+                justifyContent: "flex-start",
+                borderRadius: "15px",
+                width: "100%",
+                minHeight: "150px",
+              }}
+            >
+              <Box sx={{ maxWidth: "100%", borderRadius: "5px" }}>
+                <img
+                  style={{ borderRadius: "15px", width: "350px" }}
+                  src={item.image[0]?.link}
+                />
+              </Box>
+              <Box ml={5} width="100%">
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <Box>
+                    <Typography>{item.title}</Typography>
+                    <Typography fontSize={13}>
+                      {FormatDate(item.created_at)}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: "flex", gap: 2 }}>
+                    <Button
+                      sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
+                      size="small"
+                      color="warning"
+                      variant="contained"
+                    >
+                      <EditIcon />
+                    </Button>
+                    <Button
+                      onClick={() => handleDelete(item?.id)}
+                      sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
+                      size="small"
+                      color="error"
+                      variant="contained"
+                    >
+                      <DeleteIcon />
+                    </Button>
+                    <Button
+                      sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
+                      size="small"
+                      variant="contained"
+                    >
+                      <InfoIcon />
+                    </Button>
+                  </Box>
+                </Box>
                 <Box>
-                  <Typography>{item.title}</Typography>
-                  <Typography fontSize={13}>
-                    {FormatDate(item.created_at)}
-                  </Typography>
+                  <Typography mt={3}>{item.desc}</Typography>
                 </Box>
-                <Box sx={{ display: "flex", gap: 2 }}>
-                  <Button
-                    sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
-                    size="small"
-                    color="warning"
-                    variant="contained"
-                  >
-                    <EditIcon />
-                  </Button>
-                  <Button
-                    onClick={() => handleDelete(item?.id)}
-                    sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
-                    size="small"
-                    color="error"
-                    variant="contained"
-                  >
-                    <DeleteIcon />
-                  </Button>
-                  <Button
-                    sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
-                    size="small"
-                    variant="contained"
-                  >
-                    <InfoIcon />
-                  </Button>
-                </Box>
-              </Box>
-              <Box>
-                <Typography mt={3}>{item.desc}</Typography>
               </Box>
             </Box>
-          </Box>
-        ))}
+          ))
+        )}
       </Box>
       <CreateProgram />
     </Box>

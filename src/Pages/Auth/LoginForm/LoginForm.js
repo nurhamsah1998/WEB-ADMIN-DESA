@@ -47,7 +47,12 @@ function LoginForm() {
             <span style={{ color: grey[800] }}>DESA</span>
           </Typography>
         </Box>
-        <Typography mt={"74px"} variant="h4" textAlign={"center"} fontWeight={700}>
+        <Typography
+          mt={"74px"}
+          variant="h4"
+          textAlign={"center"}
+          fontWeight={700}
+        >
           Selamat Datang
         </Typography>
         <Box mt={10}>
@@ -75,7 +80,10 @@ function LoginForm() {
                 ...values,
               });
               if (!error) {
-                const { data } = await supabase.from("USER_DEVELOPMENT").select("*").eq("user_id", user?.id);
+                const { data } = await supabase
+                  .from("USER_DEVELOPMENT")
+                  .select("*")
+                  .eq("user_id", user?.id);
                 if (data[0]?.is_verified === "awaiting") {
                   saveStorage("status", data);
                   navigate("/web-desa/user/awaiting");

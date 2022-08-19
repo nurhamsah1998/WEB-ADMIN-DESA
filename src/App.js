@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { blue, grey, orange, red } from "@mui/material/colors";
+import { blue, grey, orange, red, green } from "@mui/material/colors";
 import DrawerMenu from "./Component/Drawer/DrawerMenu";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,6 @@ import { getStorage } from "./utils";
 
 function App() {
   const user = getStorage("status");
-
   const location = useLocation();
   const theme = createTheme({
     palette: {
@@ -26,6 +25,9 @@ function App() {
       },
       error: {
         main: red[500],
+      },
+      success: {
+        main: green[500],
       },
     },
     typography: {
@@ -55,11 +57,9 @@ function App() {
   const isVicibility = location.pathname.includes("/web-desa")
     ? isShow
     : location.pathname.includes("/auth") && isNotShow;
-
   const navigate = useNavigate();
   const isUser = location.pathname.includes("/web-desa/user");
   const isAdmin = getStorage("is-admin");
-
   const [notif, setNotif] = React.useState({
     message: "info",
     variant: "info",
@@ -86,14 +86,18 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Notif.Provider value={{ notif, setNotif }}>
-        {isAdmin === "true" ? (
+        {isAdmin ? (
           <DrawerMenu vicibility={isVicibility && !isUser}>
             <Router admin={true} />
           </DrawerMenu>
         ) : (
           <Router admin={false} />
         )}
-        <Notification message={notif.message} variant={notif.variant} v={notif.v} />
+        <Notification
+          message={notif.message}
+          variant={notif.variant}
+          v={notif.v}
+        />
       </Notif.Provider>
     </ThemeProvider>
   );

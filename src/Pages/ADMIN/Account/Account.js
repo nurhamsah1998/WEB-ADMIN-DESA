@@ -5,9 +5,12 @@ import useGetBy from "../../../Hooks/useGetBy";
 import MutationUpdate from "../../../Hooks/Mutation/MutationUpdate";
 import TableComponen from "../../../Component/TableComponen";
 import TransitionsModal from "../../../Component/TransitionsModal";
+import { getStorage } from "../../../utils";
 import { blue, orange, red } from "@mui/material/colors";
+import Loading from "../../../Component/Loading";
 
 export const Account = () => {
+  const idVillage = getStorage("village-id");
   const location = useLocation();
   const navigate = useNavigate();
   const [data, setData] = React.useState([]);
@@ -24,10 +27,10 @@ export const Account = () => {
     },
   ];
 
-  const { items } = useGetBy({
+  const { items, isLoading: loadingFetch } = useGetBy({
     module: "USER_DEVELOPMENT",
     filter: "village_id",
-    filterby: localStorage.getItem("village-id"),
+    filterby: idVillage,
   });
   const { mutation, isLoading } = MutationUpdate({
     module: "USER_DEVELOPMENT",
@@ -125,12 +128,16 @@ export const Account = () => {
         </Box>
       </TransitionsModal>
       <Box mt={1}>
-        <TableComponen
-          tableHead={tableHead}
-          btnLabel="konfirmasi"
-          handleClickReply={handleClick}
-          tableBody={dataRebuild}
-        />
+        {loadingFetch ? (
+          <Loading />
+        ) : (
+          <TableComponen
+            tableHead={tableHead}
+            btnLabel="konfirmasi"
+            handleClickReply={handleClick}
+            tableBody={dataRebuild}
+          />
+        )}
       </Box>
     </Box>
   );

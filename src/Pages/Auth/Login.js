@@ -31,7 +31,7 @@ export default function Login() {
                   menuju visi misi bersama.
                 </Typography>
                 <Box>
-                  <img maxWidth="100%" src="/Auth/rafiki.svg" />
+                  <img maxwidth="100%" src="/Auth/rafiki.svg" />
                 </Box>
               </Box>
             </Box>

@@ -14,13 +14,10 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import supabase from "../../Hooks/supabase";
 import Toolbar from "@mui/material/Toolbar";
-import SearchIcon from "@mui/icons-material/Search";
 import { useLocation } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import { blue, green, grey, red } from "@mui/material/colors";
-import PersonIcon from "@mui/icons-material/Person";
 import { NavigationMenu } from "./MenuNavigation";
-import { Button, TextField } from "@mui/material";
 import useGetData from "../../Hooks/useGetData";
 
 const drawerWidth = 340;
@@ -37,28 +34,26 @@ function DrawerMenu({ children, vicibility = true }) {
   });
   const USER = items?.find((item) => item.user_id === supabase.auth.user()?.id);
   const drawer = (
-    <div>
-      <Toolbar>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
-          <TextField
-            InputProps={{
-              startAdornment: <SearchIcon sx={{ color: grey[400], mr: 1 }} />,
-            }}
-            fullWidth
-            size="small"
-          />
-          <Button
-            color="secondary"
-            variant="contained"
-            sx={{ color: grey[400], minHeight: 0, minWidth: 0 }}
-          >
-            <PersonIcon />
-          </Button>
+    <Box sx={{ bgcolor: "#1BC5BD", height: "100vh" }}>
+      <Toolbar sx={{ bgcolor: "#fff", }}>
+        <Box sx={{ display: "flex" }}>
+          <Typography fontWeight={600} variant="h5" color={green[500]}>
+            Web
+          </Typography>
+          <Typography fontWeight={600} variant="h5" color={grey[800]}>
+            Desa
+          </Typography>
         </Box>
       </Toolbar>
-
       <List sx={{ mx: 2 }}>
-        <Typography ml={2} mt={4} mb={2} fontWeight={500} variant="h6">
+        <Typography
+          ml={2}
+          mt={2}
+          mb={2}
+          fontWeight={500}
+          color="#fff"
+          variant="h6"
+        >
           Menu
         </Typography>
         {NavigationMenu.map((text, index) => {
@@ -82,19 +77,35 @@ function DrawerMenu({ children, vicibility = true }) {
                   }
                 }}
               >
-                <ListItemIcon sx={{ color: text.color }}>
+                <ListItemIcon sx={{ color: text.path.includes(location.pathname)? text.color :'#fff' }}>
                   {text.icon}
                 </ListItemIcon>
                 <Box>
-                  <ListItemText primary={text.label} />
-                  <Typography sx={{ fontSize: 12 }}>{text.tag}</Typography>
+                  <ListItemText
+                    sx={{
+                      color: text.path.includes(location.pathname)
+                        ? "#1BC5BD"
+                        : "#fff",
+                    }}
+                    primary={text.label}
+                  />
+                  <Typography
+                    sx={{
+                      fontSize: 12,
+                      color: text.path.includes(location.pathname)
+                        ? "#1BC5BD"
+                        : "#fff",
+                    }}
+                  >
+                    {text.tag}
+                  </Typography>
                 </Box>
               </ListItemButton>
             </ListItem>
           );
         })}
       </List>
-    </div>
+    </Box>
   );
 
   return (
@@ -103,11 +114,12 @@ function DrawerMenu({ children, vicibility = true }) {
       <AppBar
         position="fixed"
         sx={{
-          bgcolor: grey[100],
-          boxShadow: "none",
+          bgcolor: "#fff",
+          boxShadow: '0px 0px 4px black',
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
           display: vicibility ? "block" : "none",
+          
         }}
       >
         <Toolbar>
@@ -182,6 +194,7 @@ function DrawerMenu({ children, vicibility = true }) {
           width: { sm: drawerWidth },
           flexShrink: { sm: 0 },
           display: vicibility ? "block" : "none",
+          
         }}
         aria-label="mailbox folders"
       >
@@ -197,6 +210,7 @@ function DrawerMenu({ children, vicibility = true }) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
+       
             },
           }}
         >
@@ -205,6 +219,7 @@ function DrawerMenu({ children, vicibility = true }) {
         <Drawer
           variant="permanent"
           sx={{
+            
             display: { xs: "none", sm: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
@@ -223,6 +238,7 @@ function DrawerMenu({ children, vicibility = true }) {
           p: vicibility ? { xs: 1, md: 3 } : 0,
           bgcolor: grey[100],
           width: { sm: `calc(100% - ${drawerWidth}px)` },
+          height: "100vh",
         }}
       >
         {vicibility ? <Toolbar /> : null}

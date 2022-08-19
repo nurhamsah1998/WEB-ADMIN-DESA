@@ -22,11 +22,11 @@ function TableComponen({
     <Box sx={{ bgcolor: "#fff" }}>
       <Table>
         <TableHead>
-          <TableRow sx={{ bgcolor: grey[300] }}>
+          <TableRow sx={{ bgcolor: "#1BC5BD" }}>
             {tableHead?.map((head, index) => (
               <TableCell
                 colSpan={index === tableHead?.length - 1 ? 6 : "false"}
-                sx={{ fontWeight: 600, border: "none" }}
+                sx={{ fontWeight: 600, border: "none", color: "#fff" }}
                 key={index}
               >
                 {head.label}
