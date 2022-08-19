@@ -24,7 +24,7 @@ function TableComponen({
       <Table>
         <TableHead>
           <TableRow sx={{ bgcolor: "#1BC5BD" }}>
-            {tableBody?.length <= 1 ? (
+            {tableBody?.length <= 0 ? (
               <TableCell></TableCell>
             ) : (
               tableHead?.map((head, index) => (
@@ -40,7 +40,7 @@ function TableComponen({
           </TableRow>
         </TableHead>
         <TableBody>
-          {tableBody?.length <= 1 ? (
+          {tableBody?.length <= 0 ? (
             <TableRow>
               <TableCell
                 colSpan={6}
