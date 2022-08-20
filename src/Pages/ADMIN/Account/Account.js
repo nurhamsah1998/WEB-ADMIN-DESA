@@ -85,7 +85,6 @@ export const Account = () => {
       color: verifyColor(i?.is_verified),
       created_at: moment(i?.created_at).format("LLLL"),
     }));
-  console.log(dataRebuild);
   const handleClick = (item) => {
     const x = y.find((i) => i.label === item.is_verified);
     setData(item);

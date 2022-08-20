@@ -128,7 +128,6 @@ function RegisterForm() {
                 setLoading(true);
                 setTimeout(async () => {
                   const USER_ID = supabase?.auth.user();
-                  console.log(USER_ID?.id);
                   const { data, error } = await supabase
                     .from("USER_DEVELOPMENT")
                     .insert([
@@ -143,7 +142,6 @@ function RegisterForm() {
                   setLoading(false);
                   if (error) {
                     setLoading(false);
-                    console.log(error?.message);
                   } else {
                     setLoading(true);
                     setNotif((e) => ({

@@ -14,7 +14,6 @@ function MutationDelete({
   const mutation = useMutation(
     [module],
     (values) => {
-      console.log(values, "detele");
       return supabase.from(module).delete().match({ id: values });
     },
     {
