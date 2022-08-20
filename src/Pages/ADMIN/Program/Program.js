@@ -1,9 +1,6 @@
 import React from "react";
-import { Box, Button, Typography } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import InfoIcon from "@mui/icons-material/Info";
 import MutationDelete from "../../../Hooks/Mutation/MutationDeleete";
 import useFetchByTrigger from "../../../Hooks/useFetchByTrigger";
 import FestivalIcon from "@mui/icons-material/Festival";
@@ -12,9 +9,14 @@ import { FormatDate } from "../../../Component/FormatDate";
 import TransitionsModal from "../../../Component/TransitionsModal";
 import supabase from "../../../Hooks/supabase";
 import { getStorage } from "../../../utils";
+import moment from "moment";
+import "moment/locale/id";
 import Loading from "../../../Component/Loading";
+import { grey } from "@mui/material/colors";
+import CardComponent from "../../../Component/CardComponent";
 
 function Program() {
+  moment.locale("id");
   const idVillage = getStorage("village-id");
   const [id, setId] = React.useState(null);
   const [data, setData] = React.useState(false);
@@ -40,14 +42,15 @@ function Program() {
     }
   };
   const navigate = useNavigate();
-  const handleDelete = (i, e) => {
+  const handleClick = (i, e) => {
     setId(i);
-    if (e === "delete") {
-      mutation.mutate(i);
-    } else {
-      navigate(`?${i}`);
-    }
+    navigate(`?delete-program-id=${i}`);
   };
+
+  const handleDelete = () => {
+    mutation.mutate(id);
+  };
+
   React.useEffect(() => {
     getData();
   }, []);
@@ -56,10 +59,10 @@ function Program() {
     <Box>
       <TransitionsModal
         isLoading={isLoading}
-        handleSubmit={() => handleDelete("event", "delete")}
-        title="Tambah program"
+        handleSubmit={handleDelete}
+        title="Anda yakin ingin menghapus ?"
         handleClose={() => navigate(-1)}
-        open={location.search.includes(`?${id}`)}
+        open={location.search.includes(`?delete-program-id=${id}`)}
       >
         apakah anda yakin ingin menghapus? menghapus berati anda telah
         brader!!!!!
@@ -78,73 +81,48 @@ function Program() {
         {loadingFetch ? (
           <Loading />
         ) : (
-          items?.map((item, index) => (
-            <Box
-              key={index}
-              sx={{
-                mt: 2,
-                display: "flex",
-                bgcolor: "#fff",
-                p: 2,
-                justifyContent: "flex-start",
-                borderRadius: "15px",
-                width: "100%",
-                minHeight: "150px",
-              }}
-            >
-              <Box sx={{ maxWidth: "100%", borderRadius: "5px" }}>
-                <img
-                  style={{ borderRadius: "15px", width: "350px" }}
-                  src={item.image[0]?.link}
+          <Grid
+            container
+            direction="column"
+            // justifyContent={{
+            //   xs: "space-evenly",
+            //   sm: "space-evenly",
+            //   md: "space-evenly",
+            //   lg: "flex-start",
+            // }}
+            // alignItems={{
+            //   xs: "stretch",
+            //   sm: "stretch",
+            //   md: "stretch",
+            //   lg: "flex-start",
+            // }}
+            gap={2}
+          >
+            {items?.map((item, index) => (
+              <Grid item sx={{ width: { lg: "100%" } }} key={index}>
+                <CardComponent
+                  handleDelete={() => handleClick(item.id)}
+                  tag={item?.desc}
+                  title={item?.title}
+                  date={moment(item?.created_at).format("LLLL")}
+                  image={item.image[0]?.link}
                 />
-              </Box>
-              <Box ml={5} width="100%">
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
-                  }}
-                >
-                  <Box>
-                    <Typography>{item.title}</Typography>
-                    <Typography fontSize={13}>
-                      {FormatDate(item.created_at)}
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: "flex", gap: 2 }}>
-                    <Button
-                      sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
-                      size="small"
-                      color="warning"
-                      variant="contained"
-                    >
-                      <EditIcon />
-                    </Button>
-                    <Button
-                      onClick={() => handleDelete(item?.id)}
-                      sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
-                      size="small"
-                      color="error"
-                      variant="contained"
-                    >
-                      <DeleteIcon />
-                    </Button>
-                    <Button
-                      sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
-                      size="small"
-                      variant="contained"
-                    >
-                      <InfoIcon />
-                    </Button>
-                  </Box>
-                </Box>
-                <Box>
-                  <Typography mt={3}>{item.desc}</Typography>
-                </Box>
-              </Box>
-            </Box>
-          ))
+              </Grid>
+            ))}
+          </Grid>
+        )}
+      </Box>
+
+      <Box>
+        {items?.length <= 0 && (
+          <Box sx={{ textAlign: "center" }}>
+            <Typography variant="h6" fontWeight={600} color={grey[600]}>
+              Tidak ada program desa yang ditampilkan
+            </Typography>
+            <Typography color={grey[600]}>
+              sepertinya anda belum membuat program.
+            </Typography>
+          </Box>
         )}
       </Box>
       <CreateProgram />
@@ -153,3 +131,71 @@ function Program() {
 }
 
 export default Program;
+
+{
+  /* <Box
+key={index}
+sx={{
+  mt: 2,
+  display: "flex",
+  bgcolor: "#fff",
+  p: 2,
+  justifyContent: "flex-start",
+  borderRadius: "15px",
+  width: "100%",
+  minHeight: "150px",
+}}
+>
+<Box sx={{ maxWidth: "100%", borderRadius: "5px" }}>
+  <img
+    style={{ borderRadius: "15px", width: "350px" }}
+    src={item.image[0]?.link}
+  />
+</Box>
+<Box ml={5} width="100%">
+  <Box
+    sx={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "flex-start",
+    }}
+  >
+    <Box>
+      <Typography>{item.title}</Typography>
+      <Typography fontSize={13}>
+        {FormatDate(item.created_at)}
+      </Typography>
+    </Box>
+    <Box sx={{ display: "flex", gap: 2 }}>
+      <Button
+        sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
+        size="small"
+        color="warning"
+        variant="contained"
+      >
+        <EditIcon />
+      </Button>
+      <Button
+        onClick={() => handleDelete(item?.id)}
+        sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
+        size="small"
+        color="error"
+        variant="contained"
+      >
+        <DeleteIcon />
+      </Button>
+      <Button
+        sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
+        size="small"
+        variant="contained"
+      >
+        <InfoIcon />
+      </Button>
+    </Box>
+  </Box>
+  <Box>
+    <Typography mt={3}>{item.desc}</Typography>
+  </Box>
+</Box>
+</Box> */
+}

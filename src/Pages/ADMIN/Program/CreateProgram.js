@@ -24,7 +24,6 @@ function CreateProgram() {
     module: "USER_DEVELOPMENT",
     enabled: location.search.includes("?create-program=true"),
   });
-  console.log(items, "create");
   return (
     <TransitionsModal
       isLoading={loading}

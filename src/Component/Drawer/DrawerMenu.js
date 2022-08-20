@@ -214,7 +214,6 @@ function DrawerMenu({ children, vicibility = true }) {
           p: vicibility ? { xs: 1, md: 3 } : 0,
           bgcolor: grey[100],
           width: { sm: `calc(100% - ${drawerWidth}px)` },
-          height: "100vh",
         }}
       >
         {vicibility ? <Toolbar /> : null}
