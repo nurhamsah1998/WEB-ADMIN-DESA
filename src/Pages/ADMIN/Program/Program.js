@@ -81,23 +81,7 @@ function Program() {
         {loadingFetch ? (
           <Loading />
         ) : (
-          <Grid
-            container
-            direction="column"
-            // justifyContent={{
-            //   xs: "space-evenly",
-            //   sm: "space-evenly",
-            //   md: "space-evenly",
-            //   lg: "flex-start",
-            // }}
-            // alignItems={{
-            //   xs: "stretch",
-            //   sm: "stretch",
-            //   md: "stretch",
-            //   lg: "flex-start",
-            // }}
-            gap={2}
-          >
+          <Grid container direction="column" gap={2}>
             {items?.map((item, index) => (
               <Grid item sx={{ width: { lg: "100%" } }} key={index}>
                 <CardComponent
