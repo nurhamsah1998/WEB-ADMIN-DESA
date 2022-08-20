@@ -3,7 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Avatar, Box, Link } from "@mui/material";
-import Text from "../../../Component/Text";
+import Text from "../../Component/Text";
 import Slider from "react-slick";
 
 export default function Apparatus() {

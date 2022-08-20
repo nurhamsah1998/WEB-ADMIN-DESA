@@ -1,6 +1,6 @@
 import { Grid, Box, Divider } from "@mui/material";
 import React from "react";
-import Text from "../../../Component/Text";
+import Text from "../../Component/Text";
 
 const events = [
   {

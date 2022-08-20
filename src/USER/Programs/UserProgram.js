@@ -1,10 +1,10 @@
 import React from "react";
 import { Box, Button, Typography, Grid } from "@mui/material";
-import UserScreenLayout from "../../../Layout/UserScreenLayout";
-import Text from "../../../Component/Text";
-import useGetBy from "../../../Hooks/useGetBy";
-import { capitalFirstLetter, formatDate } from "../../../utils";
-import Hero from "../../../Component/Hero";
+import UserScreenLayout from "../../Layout/UserScreenLayout";
+import Text from "../../Component/Text";
+import useGetBy from "../../Hooks/useGetBy";
+import { capitalFirstLetter, formatDate } from "../../utils";
+import Hero from "../../Component/Hero";
 
 function UserProgram() {
   const innerWidth = window.innerWidth - 36;
