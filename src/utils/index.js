@@ -1,4 +1,9 @@
-import { HomeOutlined, Event, Call, SettingsOutlined } from "@mui/icons-material";
+import {
+  HomeOutlined,
+  Event,
+  Call,
+  SettingsOutlined,
+} from "@mui/icons-material";
 import SecureLS from "secure-ls";
 
 export const menu = [
@@ -14,7 +19,7 @@ export const menu = [
   },
   {
     title: "Pengaduan",
-    path: "/web-desa/user-complaint",
+    path: "/web-desa/user/user-complaint",
     icon: <Call />,
   },
   {
@@ -24,7 +29,8 @@ export const menu = [
   },
 ];
 
-export const capitalFirstLetter = (str) => str?.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase());
+export const capitalFirstLetter = (str) =>
+  str?.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase());
 
 export const formatDate = (date) => {
   var d = new Date(date),

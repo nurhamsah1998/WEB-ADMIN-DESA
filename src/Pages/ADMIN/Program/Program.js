@@ -10,6 +10,9 @@ import TransitionsModal from "../../../Component/TransitionsModal";
 import supabase from "../../../Hooks/supabase";
 import { getStorage } from "../../../utils";
 import moment from "moment";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import InfoIcon from "@mui/icons-material/Info";
 import "moment/locale/id";
 import Loading from "../../../Component/Loading";
 import { grey } from "@mui/material/colors";
@@ -67,7 +70,17 @@ function Program() {
         apakah anda yakin ingin menghapus? menghapus berati anda telah
         brader!!!!!
       </TransitionsModal>
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 5 }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 5,
+        }}
+      >
+        <Typography variant="h6" color={grey[700]} fontWeight={600}>
+          Daftar program
+        </Typography>
         <Button
           disabled={loadingFetch}
           startIcon={<FestivalIcon />}
@@ -84,13 +97,95 @@ function Program() {
           <Grid container direction="column" gap={2}>
             {items?.map((item, index) => (
               <Grid item sx={{ width: { lg: "100%" } }} key={index}>
-                <CardComponent
-                  handleDelete={() => handleClick(item.id)}
-                  tag={item?.desc}
-                  title={item?.title}
-                  date={moment(item?.created_at).format("LLLL")}
-                  image={item.image[0]?.link}
-                />
+                <Box>
+                  <Box
+                    key={index}
+                    sx={{
+                      display: {
+                        xs: "none",
+                        md: "none",
+                        lg: "flex",
+                        xl: "flex",
+                      },
+                      bgcolor: "#fff",
+                      p: 2,
+                      justifyContent: "flex-start",
+                      borderRadius: "15px",
+                      width: "100%",
+                      minHeight: "150px",
+                    }}
+                  >
+                    <Box sx={{ maxWidth: "100%", borderRadius: "5px" }}>
+                      <img
+                        style={{ borderRadius: "15px", width: "350px" }}
+                        src={item.image[0]?.link}
+                      />
+                    </Box>
+                    <Box ml={5} width="100%">
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
+                        }}
+                      >
+                        <Box>
+                          <Typography>{item.title}</Typography>
+                          <Typography fontSize={13}>
+                            {FormatDate(item.created_at)}
+                          </Typography>
+                        </Box>
+                        <Box sx={{ display: "flex", gap: 2 }}>
+                          <Button
+                            sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
+                            size="small"
+                            color="warning"
+                            variant="contained"
+                          >
+                            <EditIcon />
+                          </Button>
+                          <Button
+                            onClick={() => handleDelete(item?.id)}
+                            sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
+                            size="small"
+                            color="error"
+                            variant="contained"
+                          >
+                            <DeleteIcon />
+                          </Button>
+                          <Button
+                            sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
+                            size="small"
+                            variant="contained"
+                          >
+                            <InfoIcon />
+                          </Button>
+                        </Box>
+                      </Box>
+                      <Box>
+                        <Typography mt={3}>{item.desc}</Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: {
+                        xs: "block",
+                        md: "block",
+                        lg: "none",
+                        xl: "none",
+                      },
+                    }}
+                  >
+                    <CardComponent
+                      handleDelete={() => handleClick(item.id)}
+                      tag={item?.desc}
+                      title={item?.title}
+                      date={moment(item?.created_at).format("LLLL")}
+                      image={item.image[0]?.link}
+                    />
+                  </Box>
+                </Box>
               </Grid>
             ))}
           </Grid>
@@ -115,71 +210,3 @@ function Program() {
 }
 
 export default Program;
-
-{
-  /* <Box
-key={index}
-sx={{
-  mt: 2,
-  display: "flex",
-  bgcolor: "#fff",
-  p: 2,
-  justifyContent: "flex-start",
-  borderRadius: "15px",
-  width: "100%",
-  minHeight: "150px",
-}}
->
-<Box sx={{ maxWidth: "100%", borderRadius: "5px" }}>
-  <img
-    style={{ borderRadius: "15px", width: "350px" }}
-    src={item.image[0]?.link}
-  />
-</Box>
-<Box ml={5} width="100%">
-  <Box
-    sx={{
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "flex-start",
-    }}
-  >
-    <Box>
-      <Typography>{item.title}</Typography>
-      <Typography fontSize={13}>
-        {FormatDate(item.created_at)}
-      </Typography>
-    </Box>
-    <Box sx={{ display: "flex", gap: 2 }}>
-      <Button
-        sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
-        size="small"
-        color="warning"
-        variant="contained"
-      >
-        <EditIcon />
-      </Button>
-      <Button
-        onClick={() => handleDelete(item?.id)}
-        sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
-        size="small"
-        color="error"
-        variant="contained"
-      >
-        <DeleteIcon />
-      </Button>
-      <Button
-        sx={{ fontWeight: 600, color: "#fff", minWidth: 0 }}
-        size="small"
-        variant="contained"
-      >
-        <InfoIcon />
-      </Button>
-    </Box>
-  </Box>
-  <Box>
-    <Typography mt={3}>{item.desc}</Typography>
-  </Box>
-</Box>
-</Box> */
-}
