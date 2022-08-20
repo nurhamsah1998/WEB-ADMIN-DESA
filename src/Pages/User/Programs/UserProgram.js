@@ -17,7 +17,7 @@ function UserProgram() {
 
   return (
     <Box>
-      {/* <Hero />
+      <Hero />
       <Box
         maxWidth="lg"
         margin="auto"
@@ -90,8 +90,7 @@ function UserProgram() {
             </Box>
           );
         })}
-      </Box> */}
-      asdasdadasd
+      </Box>
     </Box>
   );
 }
