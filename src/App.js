@@ -8,6 +8,7 @@ import Router from "./router";
 import { Notif } from "./Hooks/useContextNotification";
 import Notification from "./Component/Notification";
 import { getStorage } from "./utils";
+import UserScreenLayout from "./Layout/UserScreenLayout";
 
 function App() {
   const user = getStorage("status");
@@ -91,7 +92,9 @@ function App() {
             <Router admin={true} />
           </DrawerMenu>
         ) : (
-          <Router admin={false} />
+          <UserScreenLayout>
+            <Router admin={false} />
+          </UserScreenLayout>
         )}
         <Notification
           message={notif.message}
