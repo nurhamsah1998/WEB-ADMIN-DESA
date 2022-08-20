@@ -8,7 +8,9 @@ import Program from "./Pages/ADMIN/Program/Program";
 import { Account } from "./Pages/ADMIN/Account/Account";
 import { More } from "./Pages/ADMIN/More/More";
 import { Document } from "./Pages/ADMIN/Document/Document";
+import Home from "./Pages/USER/Home/Home";
 import Complain from "./Pages/ADMIN/Complain/Complain";
+import UserProgram from "./Pages/USER/Programs/UserProgram";
 import Verified from "./Pages/Auth/Status/Verified";
 import Denied from "./Pages/Auth/Status/Denied";
 
@@ -73,11 +75,11 @@ function Router({ admin }) {
           },
           {
             path: "/web-desa/user/home",
-            element: <Verified />,
+            element: <Home />,
           },
           {
             path: "/web-desa/user/program",
-            element: <Verified />,
+            element: <UserProgram />,
           },
           {
             path: "/web-desa/user/awaiting",
