@@ -4,7 +4,6 @@ import UserScreenLayout from "../../Layout/UserScreenLayout";
 import Text from "../../Component/Text";
 import useGetBy from "../../Hooks/useGetBy";
 import { capitalFirstLetter, formatDate } from "../../utils";
-import Hero from "../../Component/Hero";
 
 function UserProgram() {
   const innerWidth = window.innerWidth - 36;
@@ -16,8 +15,7 @@ function UserProgram() {
   });
 
   return (
-    <Box>
-      <Hero />
+    <UserScreenLayout>
       <Box
         maxWidth="lg"
         margin="auto"
@@ -91,7 +89,7 @@ function UserProgram() {
           );
         })}
       </Box>
-    </Box>
+    </UserScreenLayout>
   );
 }
 
