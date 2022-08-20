@@ -13,7 +13,7 @@ import Complain from "./Pages/ADMIN/Complain/Complain";
 import UserProgram from "./USER/Programs/UserProgram";
 import Verified from "./Pages/Auth/Status/Verified";
 import Denied from "./Pages/Auth/Status/Denied";
-import UserComplain from "./USER/Complain/Complain";
+import UserComplain from "./USER/Complain/UserComplain";
 
 function Router({ admin }) {
   return useRoutes(

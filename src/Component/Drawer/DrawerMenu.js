@@ -21,6 +21,7 @@ import { blue, green, grey, red } from "@mui/material/colors";
 import { NavigationMenu } from "./MenuNavigation";
 import useGetBy from "../../Hooks/useGetBy";
 import { getStorage } from "../../utils";
+import TransitionsModal from "../TransitionsModal";
 
 const drawerWidth = 340;
 
@@ -74,8 +75,7 @@ function DrawerMenu({ children, vicibility = true }) {
               <ListItemButton
                 onClick={() => {
                   if (text.path === "?log-out") {
-                    localStorage.clear();
-                    window.location.reload();
+                    navigate("?log-out");
                   } else {
                     navigate(text.path);
                     setMobileOpen(!mobileOpen);
@@ -122,6 +122,15 @@ function DrawerMenu({ children, vicibility = true }) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
+      <TransitionsModal
+        title="Apakah anda yakin ingin keluar ?"
+        handleSubmit={() => {
+          localStorage.clear();
+          window.location.reload();
+        }}
+        open={location.search.includes("?log-out")}
+        handleClose={() => navigate(-1)}
+      />
       <AppBar
         position="fixed"
         sx={{
