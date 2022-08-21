@@ -13,6 +13,7 @@ import Loading from "../../../Component/Loading";
 /// answer by Agu Dondo : https://stackoverflow.com/users/936703/agu-dondo
 import moment from "moment";
 import "moment/locale/id";
+import TableComponentMobile from "../../../Component/TableComponentMobile";
 moment.locale("id");
 /// stackoverflow
 
@@ -98,6 +99,13 @@ export const Account = () => {
     mutation.mutate(body);
     setBtn({ index: 0, value: "" });
   };
+
+  const handleClickCell = (item) => {
+    const x = y.find((i) => i.label === item.is_verified);
+    setData(item);
+    setBtn((i) => ({ index: x?.x, value: item }));
+    navigate("?confirm");
+  };
   return (
     <Box>
       <Typography mb={3} variant="h6" fontWeight={600} color={grey[700]}>
@@ -147,13 +155,34 @@ export const Account = () => {
         {loadingFetch ? (
           <Loading />
         ) : (
-          <TableComponen
-            emptyTag="sepertinya tidak ada penduduk yang mendaftar."
-            tableHead={tableHead}
-            btnLabel="konfirmasi"
-            handleClickReply={handleClick}
-            tableBody={dataRebuild}
-          />
+          <Box>
+            <Box
+              sx={{
+                display: { xs: "none", sm: "none", md: "block", lg: "block" },
+              }}
+            >
+              <TableComponen
+                emptyTag="sepertinya tidak ada penduduk yang mendaftar."
+                tableHead={tableHead}
+                btnLabel="konfirmasi"
+                handleClickReply={handleClick}
+                tableBody={dataRebuild}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: { xs: "block", sm: "block", md: "none", lg: "none" },
+              }}
+            >
+              <TableComponentMobile
+                emptyTag="sepertinya tidak ada penduduk yang mendaftar."
+                tableHead={tableHead}
+                handleClickReply={handleClick}
+                tableBody={dataRebuild}
+                handleClickCell={handleClickCell}
+              />
+            </Box>
+          </Box>
         )}
       </Box>
     </Box>

@@ -136,8 +136,8 @@ function DrawerMenu({ children, vicibility = true }) {
         sx={{
           bgcolor: "#fff",
           boxShadow: "0px 0px 4px black",
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
+          width: { md: `calc(100% - ${drawerWidth}px)` },
+          ml: { md: `${drawerWidth}px` },
           display: vicibility ? "block" : "none",
         }}
       >
@@ -147,7 +147,7 @@ function DrawerMenu({ children, vicibility = true }) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ color: green[500], mr: 2, display: { sm: "none" } }}
+            sx={{ color: green[500], mr: 2, display: { md: "none" } }}
           >
             <MenuIcon />
           </IconButton>
@@ -179,8 +179,8 @@ function DrawerMenu({ children, vicibility = true }) {
       <Box
         component="nav"
         sx={{
-          width: { sm: drawerWidth },
-          flexShrink: { sm: 0 },
+          width: { md: drawerWidth },
+          flexShrink: { md: 0 },
           display: vicibility ? "block" : "none",
         }}
         aria-label="mailbox folders"
@@ -193,7 +193,7 @@ function DrawerMenu({ children, vicibility = true }) {
             keepMounted: true,
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: { xs: "block", sm: "block", md: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
@@ -205,7 +205,7 @@ function DrawerMenu({ children, vicibility = true }) {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: "none", sm: "block" },
+            display: { xs: "none", sm: "none", md: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
