@@ -9,16 +9,19 @@ function MutationUpdate({
   errorMessage = "error",
 }) {
   const { setNotif } = useContext(Notif);
+  const [onSuccess, setonSuccess] = React.useState(false);
   const client = useQueryClient();
   const AUTH = supabase.auth.user();
   const mutation = useMutation(
     [module],
     (values) => {
+      setonSuccess(false);
       return supabase.from(module).update({ ...values });
     },
     {
       onSuccess: (res) => {
         if (res.error !== null) {
+          setonSuccess(true);
           setNotif((e) => ({
             ...e,
             v: true,
@@ -27,6 +30,7 @@ function MutationUpdate({
           }));
         }
         if (res.error === null) {
+          setonSuccess(true);
           client.invalidateQueries(module);
           setNotif((e) => ({
             ...e,
@@ -38,7 +42,7 @@ function MutationUpdate({
       },
     }
   );
-  return { mutation: mutation, ...mutation };
+  return { mutation: mutation, onSuccess: onSuccess, ...mutation };
 }
 
 export default MutationUpdate;

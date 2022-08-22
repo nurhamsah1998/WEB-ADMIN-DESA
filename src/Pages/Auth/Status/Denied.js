@@ -2,8 +2,17 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import { red } from "@mui/material/colors";
+import useGetBy from "../../../Hooks/useGetBy";
+import supabase from "../../../Hooks/supabase";
+import Loading from "../../../Component/Loading";
 
 function Denied() {
+  const { items, isLoading } = useGetBy({
+    module: "USER_DEVELOPMENT",
+    filter: "user_id",
+    filterby: supabase.auth.user()?.id,
+  });
+
   const handleBack = () => {
     localStorage.clear();
     window.location.reload();
@@ -41,11 +50,15 @@ function Denied() {
             <Typography variant="h4" fontWeight={600} color="#fff">
               Mohon maaf akun anda tidak diterima
             </Typography>
-            <Typography variant="h6" mb={3} color="#fff">
-              sepertinya beberapa data yang anda masukkan tidak sesuai dengan data diserver kami
+            <Typography variant="h6" mt={3} mb={2} color="#fff">
+              {isLoading ? <Loading /> : items[0]?.denied_message}
             </Typography>
-            <Button onClick={handleBack} variant="contained" sx={{ color: "white", bgcolor: "mediumseagreen" }}>
-              Oke
+            <Button
+              onClick={handleBack}
+              variant="contained"
+              sx={{ color: "white", bgcolor: "mediumseagreen" }}
+            >
+              Keluar
             </Button>
           </Box>
         </Box>

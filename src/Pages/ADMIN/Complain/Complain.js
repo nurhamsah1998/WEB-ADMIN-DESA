@@ -78,7 +78,7 @@ function Complain() {
         )}
       </Box>
       <TransitionsModal
-        isLoading={isLoading || USER_LOADING}
+        isLoading={isLoading}
         title={`Kirim pesan ke ${DATA_USER?.[0]?.name}`}
         handleSubmit={handleSubmit}
         handleClose={() => navigate(-1)}

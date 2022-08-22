@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import useGetBy from "../../../Hooks/useGetBy";
 import MutationUpdate from "../../../Hooks/Mutation/MutationUpdate";
@@ -22,6 +22,7 @@ export const Account = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [data, setData] = React.useState([]);
+  const [value, setValue] = React.useState("");
   const [btn, setBtn] = React.useState({ index: 0, value: "" });
   const tableHead = [
     {
@@ -45,7 +46,7 @@ export const Account = () => {
     filter: "village_id",
     filterby: idVillage,
   });
-  const { mutation, isLoading } = MutationUpdate({
+  const { mutation, isLoading, onSuccess } = MutationUpdate({
     module: "USER_DEVELOPMENT",
     successMessage: `status ${data.name} berhasil diubah`,
     errorMessage: `status ${data.name} gagal diubah`,
@@ -93,24 +94,51 @@ export const Account = () => {
     navigate("?confirm");
   };
   const handleSubmit = () => {
+    if (btn.value === "denied") {
+      navigate("?denied");
+      return false;
+    }
     const body = { ...data, is_verified: btn.value };
     delete body.color;
     delete body.created_at;
     mutation.mutate(body);
     setBtn({ index: 0, value: "" });
   };
-
   const handleClickCell = (item) => {
     const x = y.find((i) => i.label === item.is_verified);
     setData(item);
     setBtn((i) => ({ index: x?.x, value: item }));
     navigate("?confirm");
   };
+  const handleSubmitSendMessageDenied = () => {
+    const body = { ...data, is_verified: btn.value, denied_message: value };
+    delete body.color;
+    delete body.created_at;
+    mutation.mutate(body);
+  };
+
   return (
     <Box>
       <Typography mb={3} variant="h6" fontWeight={600} color={grey[700]}>
         Daftar akun yang masuk{" "}
       </Typography>
+      <TransitionsModal
+        isLoading={isLoading}
+        title="Apakah anda yakin ingin menolak?"
+        handleSubmit={handleSubmitSendMessageDenied}
+        handleClose={() => navigate(-2)}
+        open={location.search.includes("?denied")}
+      >
+        <Typography>
+          Tulis alasan penolakan. pesan penolakan ini nantinya akan disampaikan
+          ke user yang ditolak
+        </Typography>
+        <TextField
+          value={value}
+          onChange={(i) => setValue(i.target.value)}
+          fullWidth
+        />
+      </TransitionsModal>
       <TransitionsModal
         isLoading={isLoading}
         title="Konfirmasi Akun"
