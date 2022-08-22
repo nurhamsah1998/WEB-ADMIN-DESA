@@ -5,8 +5,8 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import LoadingButton from "./LoadingButton";
-import { green } from "@mui/material/colors";
-import { Button } from "@mui/material";
+import { CircularProgress } from "@mui/material";
+import Loading from "./Loading";
 
 const style = {
   position: "absolute",
@@ -44,7 +44,7 @@ export default function TransitionsModal({
         <Fade in={open}>
           <Box sx={style}>
             <Typography id="transition-modal-title" variant="h6" component="h2">
-              {title}
+              {isLoading ? <Loading /> : title}
             </Typography>
             <Box sx={{ p: 2, borderRadius: "5px", mt: 1 }}>{children}</Box>
             <Box

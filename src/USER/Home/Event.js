@@ -52,7 +52,7 @@ function Events() {
             <Grid
               container
               sx={{
-                flexDirection: index % 2 == 0 ? "row" : "row-reverse",
+                flexDirection: index % 2 === 0 ? "row" : "row-reverse",
                 marginBottom: { xs: 4, sm: 4, md: 10, lg: 12 },
               }}
             >

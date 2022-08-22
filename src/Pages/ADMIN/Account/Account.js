@@ -119,7 +119,7 @@ export const Account = () => {
         open={location.search.includes("?confirm")}
       >
         <Box sx={{ mb: 2 }}>{data.name}</Box>
-        <Box sx={{ display: "flex", gap: 3 }}>
+        <Box sx={{ display: { sm: "grid", md: "flex", lg: "flex" }, gap: 3 }}>
           {[
             {
               value: "awaiting",
@@ -139,6 +139,7 @@ export const Account = () => {
           ].map((item, index) => (
             <Box key={index}>
               <Button
+                sx={{ width: "100%" }}
                 onClick={() => {
                   setBtn((i) => ({ index: index, value: item.value }));
                 }}
